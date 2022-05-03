@@ -41,4 +41,10 @@ a {
   background-color: darkviolet;
   padding-top: 15px;
   padding-bottom: 15px;
+  width: 70%;
+}
+
+.navLinksContainer {
+  display: flex;
+  justify-content: center;
 }
