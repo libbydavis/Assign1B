@@ -1,0 +1,44 @@
+.App {
+  text-align: center;
+}
+
+.navbar {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  color: darkviolet;
+}
+
+.subtitle {
+  font-weight: normal;
+  font-style: italic;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.loginButton {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.buttonLinkStyle {
+  background-color: darkturquoise;
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+.navlinks {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  background-color: darkviolet;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
