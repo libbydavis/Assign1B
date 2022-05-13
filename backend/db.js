@@ -14,4 +14,19 @@ const connectDB = async (uri, callback) => {
   }
 };
 
+const getUsers = async () => {
+  let db = mongoose.connection;
+
+  //   try {
+  //     db.collection("Assign1B").findOne({}, function (err, result) {
+  //       console.log(result);
+  //       db.close();
+  //     });
+  //   } catch (err) {
+  //     console.error(err.message);
+  //     process.exit(1);
+  //   }
+};
+
 module.exports = connectDB;
+module.exports = getUsers;

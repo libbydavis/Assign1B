@@ -1,6 +1,7 @@
 const express = require("express");
 const PORT = process.env.PORT || 8082;
 const connectDB = require("./db");
+const getUsers = require("./db");
 const cors = require("cors");
 
 const server = express();
@@ -17,8 +18,8 @@ server.get("/", (req, res) => {
 });
 
 server.post("/login", (req, res) => {
-  console.log("Logged user in!");
-  res.send("Logged user in!");
+  //   getUsers().then((res) => console.log(res));
+  res.send("Logged User In");
 });
 
 server.listen(PORT, () => console.log(`listening on port ${PORT}`));
