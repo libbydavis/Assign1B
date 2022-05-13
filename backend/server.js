@@ -1,17 +1,24 @@
 const express = require("express");
-const PORT = process.env.PORT || 5000;
-const connectDB = require('./db');
-const cors = require('cors');
+const PORT = process.env.PORT || 8082;
+const connectDB = require("./db");
+const cors = require("cors");
 
 const server = express();
 
-connectDB().then(r => console.log("connected to DB"));
+connectDB().then((r) => console.log("connected to DB"));
 
 server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
+server.get("/", (req, res) => {
+  console.log("API is running");
+  res.send("API is running!");
+});
+
+server.post("/login", (req, res) => {
+  console.log("Logged user in!");
+  res.send("Logged user in!");
+});
+
 server.listen(PORT, () => console.log(`listening on port ${PORT}`));
-
-
-

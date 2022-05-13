@@ -48,3 +48,53 @@ a {
   display: flex;
   justify-content: center;
 }
+
+.loginForm {
+  background-color: darkviolet;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 250px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 10px;
+  margin-top: 90px;
+}
+
+.formTitle {
+  color: white;
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  text-align: left;
+  width: 240px;
+  height: 25px;
+  font-size: 15px;
+}
+
+label {
+  font-size: 20px;
+  color: white;
+}
+
+.formButton {
+  margin-top: 10px;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 15px;
+  border-width: 2px;
+  font-weight: bold;
+  border-color: white;
+  width: 100%;
+}
