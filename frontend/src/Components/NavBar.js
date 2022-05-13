@@ -10,11 +10,13 @@ function NavBar() {
                 </div>
                 <Link to="/login" className="loginButton buttonLinkStyle">Login</Link>
             </div>
-            <nav className="navlinks">
-                <Link to="/">Home</Link>
-                <Link to="/browseArticles">Browse Articles</Link>
-                <Link to="/submitArticle">Submit Article</Link>
-            </nav>
+            <div className="navLinksContainer">
+                <nav className="navlinks">
+                    <Link to="/">Home</Link>
+                    <Link to="/browseArticles">Browse Articles</Link>
+                    <Link to="/submitArticle">Submit Article</Link>
+                </nav>
+            </div>
         </div>
     )
 }
