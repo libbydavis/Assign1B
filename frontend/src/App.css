@@ -103,3 +103,7 @@ label {
 .customTableWidth {
   width: 95%;
 }
+
+th:hover {
+  cursor: pointer;
+}
