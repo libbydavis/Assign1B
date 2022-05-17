@@ -1,9 +1,16 @@
 import Table from 'react-bootstrap/Table'
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 
 function BrowseArticles() {
     const [articles, setArticles] = useState([]);
+    const [sortOrder, setSortOrder] = useState("descending");
+    const [showSort, setShowSort] = useState({
+        title: true,
+        authors: false,
+        yearPublished: false
+    })
+    const didMount = useRef(false);
     const articles1 = [
         {title: "dogs are cool",
         authors: ["david"],
@@ -27,19 +34,56 @@ function BrowseArticles() {
     ]
 
     useEffect(() => {
-        axios.get("http://localhost:8082/articles")
-            .then((res) => {
-                setArticles(res.data);
-            })
-            .catch((er) => {
-            console.log(er);
-        })
+        if (!didMount.current) {
+            axios.get("http://localhost:8082/articles")
+                .then((res) => {
+                    setArticles(res.data);
+                })
+                .catch((er) => {
+                    console.log(er);
+                })
+        }
     }, []);
 
     function sort(sortBy) {
         let articlesCopy = [...articles];
-        articlesCopy.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1);
+        if (sortOrder == "ascending") {
+            console.log("sorting")
+            articlesCopy.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1);
+        }
+        else if (sortOrder == "descending") {
+            console.log("sort de")
+            articlesCopy.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1).reverse();
+        }
+
         setArticles(articlesCopy);
+
+        if (sortBy == "title") {
+            setShowSort({
+                title: true,
+                authors: false,
+                yearPublished: false
+            })
+        }
+        else if (sortBy == "authors") {
+            setShowSort({
+                title: false,
+                authors: true,
+                yearPublished: false
+            })
+        }
+        else if (sortBy == "yearPublished") {
+            setShowSort({
+                title: false,
+                authors: false,
+                yearPublished: true
+            })
+        }
+    }
+
+    function changeSortOrder() {
+        sortOrder == "descending" ? setSortOrder("ascending") : setSortOrder("descending");
+
     }
 
     return (
@@ -47,9 +91,9 @@ function BrowseArticles() {
             <Table className="table-bordered customTableWidth">
                 <thead>
                 <tr>
-                    <th onClick={() => sort("title")}>Title</th>
-                    <th>Authors</th>
-                    <th onClick={() => sort("yearPublished")}>Year of Publication</th>
+                    <th>{showSort.title? <p onClick={changeSortOrder}>Title {sortOrder}</p> : <p onClick={() => sort("title")}>Title</p>}</th>
+                    <th>{showSort.authors? <p onClick={changeSortOrder}>Authors {sortOrder}</p> : <p onClick={() => sort("authors")}>Authors</p>}</th>
+                    <th>{showSort.yearPublished? <p onClick={changeSortOrder}>Year Published {sortOrder}</p> : <p onClick={() => sort("yearPublished")}>Year Published</p>}</th>
                     <th>Journal Name</th>
                     <th>SE Practice</th>
                     <th>Claim</th>
