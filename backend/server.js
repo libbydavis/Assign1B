@@ -29,7 +29,15 @@ MongoClient.connect(connectionString)
     });
 
     server.post("/login", (req, res) => {
-      res.send("Logged User In");
+      db.collection("Users")
+        .find()
+        .toArray(function (err, result) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.json(result);
+          }
+        });
     });
   })
   .catch((error) => console.log(error));
