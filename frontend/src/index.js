@@ -26,6 +26,15 @@ root.render(
   </BrowserRouter>
 );
 
+function App() {
+  return (
+    <div className="App">
+      <h1>Search</h1>
+      <Container />
+    </div>
+  );
+}
+
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
 
