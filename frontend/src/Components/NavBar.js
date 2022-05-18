@@ -5,7 +5,7 @@ function NavBar() {
         <div className="SPEEDnavbar">
             <div>
                 <div>
-                    <Link to="/"><h1 className="title">SPEED Database</h1></Link>
+                    <Link to="/"><h1 className="navTitle">SPEED Database</h1></Link>
                     <h3 className="tagline">find the best articles relevant to your research project</h3>
                 </div>
                 <Link to="/login" className="loginButton buttonLinkStyle">Login</Link>

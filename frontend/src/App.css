@@ -7,8 +7,11 @@
   margin-bottom: 30px;
 }
 
-.title {
+.navTitle {
   color: darkviolet;
+  font-weight: bold;
+  font-size: 2.2em;
+  margin: 10px;
 }
 
 .tagline {
@@ -106,4 +109,8 @@ label {
 
 th:hover {
   cursor: pointer;
+}
+
+.sortOrder {
+  color: blue;
 }

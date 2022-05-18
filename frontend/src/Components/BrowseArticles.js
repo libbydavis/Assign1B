@@ -8,31 +8,15 @@ function BrowseArticles() {
     const [showSort, setShowSort] = useState({
         title: true,
         authors: false,
-        yearPublished: false
+        yearPublished: false,
+        journalName: false
     })
+    const [sortByCurrent, setSortByCurrent] = useState("title");
     const didMount = useRef(false);
-    const articles1 = [
-        {title: "dogs are cool",
-        authors: ["david"],
-        yearPublished: "2001",
-        journalName: "cool dogs journal",
-        SEPractice: "Dogs",
-        claim: "dogs are indeed cool",
-        evidenceResult: "agree",
-        researchType: "case study",
-        participantType: "dogs"},
 
-        {title: "cats are cool",
-            authors: ["rachel", "gia"],
-            yearPublished: "2001",
-            journalName: "cool dogs journal",
-            SEPractice: "Dogs",
-            claim: "dogs are indeed cool",
-            evidenceResult: "agree",
-            researchType: "case study",
-            participantType: "dogs"}
-    ]
-
+    /**
+     *
+     */
     useEffect(() => {
         if (!didMount.current) {
             axios.get("http://localhost:8082/articles")
@@ -48,11 +32,9 @@ function BrowseArticles() {
     function sort(sortBy) {
         let articlesCopy = [...articles];
         if (sortOrder == "ascending") {
-            console.log("sorting")
             articlesCopy.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1);
         }
         else if (sortOrder == "descending") {
-            console.log("sort de")
             articlesCopy.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1).reverse();
         }
 
@@ -62,39 +44,55 @@ function BrowseArticles() {
             setShowSort({
                 title: true,
                 authors: false,
-                yearPublished: false
+                yearPublished: false,
+                journalName: false
             })
         }
         else if (sortBy == "authors") {
             setShowSort({
                 title: false,
                 authors: true,
-                yearPublished: false
+                yearPublished: false,
+                journalName: false
             })
         }
         else if (sortBy == "yearPublished") {
             setShowSort({
                 title: false,
                 authors: false,
-                yearPublished: true
+                yearPublished: true,
+                journalName: false
+            })
+        }
+        else if (sortBy == "journalName") {
+            setShowSort({
+                title: false,
+                authors: false,
+                yearPublished: false,
+                journalName: true
             })
         }
     }
 
-    function changeSortOrder() {
+    function changeSortOrder(sortBy) {
+        setSortByCurrent(sortBy);
         sortOrder == "descending" ? setSortOrder("ascending") : setSortOrder("descending");
 
     }
+
+    useEffect(() => {
+        sort(sortByCurrent);
+    }, [sortOrder])
 
     return (
         <div className="flexCentre">
             <Table className="table-bordered customTableWidth">
                 <thead>
                 <tr>
-                    <th>{showSort.title? <p onClick={changeSortOrder}>Title {sortOrder}</p> : <p onClick={() => sort("title")}>Title</p>}</th>
-                    <th>{showSort.authors? <p onClick={changeSortOrder}>Authors {sortOrder}</p> : <p onClick={() => sort("authors")}>Authors</p>}</th>
-                    <th>{showSort.yearPublished? <p onClick={changeSortOrder}>Year Published {sortOrder}</p> : <p onClick={() => sort("yearPublished")}>Year Published</p>}</th>
-                    <th>Journal Name</th>
+                    <th>{showSort.title? <p onClick={() => changeSortOrder("title")}>Title <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("title")}>Title</p>}</th>
+                    <th>{showSort.authors? <p onClick={() => changeSortOrder("authors")}>Authors <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("authors")}>Authors</p>}</th>
+                    <th>{showSort.yearPublished? <p onClick={() => changeSortOrder("yearPublished")}>Year Published <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("yearPublished")}>Year Published</p>}</th>
+                    <th>{showSort.journalName? <p onClick={() => changeSortOrder("journalName")}>Journal Name <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("journalName")}>Journal Name</p>}</th>
                     <th>SE Practice</th>
                     <th>Claim</th>
                     <th>Result of Evidence</th>
@@ -108,7 +106,9 @@ function BrowseArticles() {
                         return (
                             <tr key={key}>
                                 <td>{article.title}</td>
-                                <td>{article.authors}</td>
+                                <td>{article.authors.length <= 1 ? article.authors : article.authors.map((author, key) => {
+                                    return <span key={key}>{author}{key + 1 < article.authors.length ? ", " : " "}</span>;
+                                })}</td>
                                 <td>{article.yearPublished}</td>
                                 <td>{article.journalName}</td>
                                 <td>{article.SEPractice}</td>
