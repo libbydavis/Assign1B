@@ -86,11 +86,11 @@ function BrowseArticles() {
 
     return (
         <div className="flexCentre">
-            <Table className="table-bordered customTableWidth">
+            <Table data-testid="tableTest" className="table-bordered customTableWidth">
                 <thead>
                 <tr>
                     <th>{showSort.title? <p onClick={() => changeSortOrder("title")}>Title <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("title")}>Title</p>}</th>
-                    <th>{showSort.authors? <p onClick={() => changeSortOrder("authors")}>Authors <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("authors")}>Authors</p>}</th>
+                    <th>{showSort.authors? <p onClick={() => changeSortOrder("authors")}>Authors <span className="sortOrder" data-testid="sortOrderTest">{sortOrder}</span></p> : <p data-testid="authorsTest" onClick={() => sort("authors")}>Authors</p>}</th>
                     <th>{showSort.yearPublished? <p onClick={() => changeSortOrder("yearPublished")}>Year Published <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("yearPublished")}>Year Published</p>}</th>
                     <th>{showSort.journalName? <p onClick={() => changeSortOrder("journalName")}>Journal Name <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("journalName")}>Journal Name</p>}</th>
                     <th>SE Practice</th>
