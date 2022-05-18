@@ -90,6 +90,7 @@ label {
 
 .formButton {
   margin-top: 10px;
+  margin-bottom: 25px;
   background-color: white;
   padding: 10px 20px;
   border-radius: 15px;
@@ -97,4 +98,9 @@ label {
   font-weight: bold;
   border-color: white;
   width: 100%;
+}
+
+.errorMessage {
+  color: white;
+  font-size: 16px;
 }
