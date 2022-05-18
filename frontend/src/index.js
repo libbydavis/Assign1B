@@ -9,7 +9,11 @@ import SubmitArticle from "./Components/SumitArticle";
 import Login from "./Components/Login";
 import NavBar from "./Components/NavBar";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import Container from "./Container";
+
+import "./styles.css";
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <NavBar />
@@ -21,6 +25,18 @@ root.render(
     </Routes>
   </BrowserRouter>
 );
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Search</h1>
+      <Container />
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
