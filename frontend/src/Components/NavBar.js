@@ -5,11 +5,6 @@ import { Link, Navigate } from "react-router-dom";
 function NavBar() {
   const loggedIn = useContext(LoginContext);
 
-  const signout = () => {
-    loggedIn.setLoggedIn(false);
-    Navigate("/");
-  };
-
   return (
     <div className="navbar">
       <div>
