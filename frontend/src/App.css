@@ -89,6 +89,7 @@ label {
 
 .formButton {
   margin-top: 10px;
+  margin-bottom: 25px;
   background-color: white;
   padding: 10px 20px;
   border-radius: 15px;
@@ -113,4 +114,9 @@ th:hover {
 
 .sortOrder {
   color: blue;
+}
+
+.errorMessage {
+  color: white;
+  font-size: 16px;
 }
