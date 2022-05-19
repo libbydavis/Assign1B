@@ -12,11 +12,11 @@ function NavBar() {
                     <Link to="/"><h1 className="navTitle">SPEED Database</h1></Link>
                     <h3 className="tagline">find the best articles relevant to your research project</h3>
                 </div>
-            {loggedIn ? null : (
-              <Link to="/login" className="loginButton buttonLinkStyle">
-                Login
-              </Link>
-            )}
+                {loggedIn ? null : (
+                    <Link to="/login" className="loginButton buttonLinkStyle">
+                        Login
+                    </Link>
+                )}
             </div>
             <div className="flexCentre">
                 <nav className="navlinks flexCentre">
@@ -25,5 +25,10 @@ function NavBar() {
                     <Link to="/submitArticle">Submit Article</Link>
                 </nav>
             </div>
-      
+        </div>
+    )
+}
+
+
+
 export default NavBar;
