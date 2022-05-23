@@ -10,6 +10,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState("user");
 
   const [user, setUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -30,12 +31,18 @@ function Login() {
 
   useEffect(() => {
     user.map((user) => {
-      if (user.email === email && user.password === password) {
+      if (
+        user.email === email &&
+        user.password === password &&
+        user.userType === userType
+      ) {
         loggedIn.setLoggedIn(true);
         navigate("/");
       } else {
         setErrorMessage(
-          "Email and password do not match for an associated account"
+          "Email and password do not match for an associated " +
+            userType +
+            " account"
         );
       }
     });
@@ -69,6 +76,20 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <br />
+
+          <label>User Type:</label>
+          <br />
+          <select
+            name="userType"
+            id="userType"
+            onChange={(e) => setUserType(e.target.value)}
+            value={userType}
+          >
+            <option value="user">User</option>
+            <option value="moderator">Moderator</option>
+            <option value="analyst">Analyst</option>
+          </select>
           <br />
         </form>
 
