@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { LoginContext } from "../App";
 import { Link, Navigate } from "react-router-dom";
 import { AppContext } from "../Context";
@@ -17,11 +17,13 @@ function NavBar() {
             find the best articles relevant to your research project
           </h3>
         </div>
-        {loggedIn ? null : (
-          <Link to="/login" className="loginButton buttonLinkStyle">
-            Login
-          </Link>
-        )}
+        {!loggedIn.loggedIn ? (
+          <>
+            <Link to="/login" className="loginButton buttonLinkStyle">
+              Login
+            </Link>
+          </>
+        ) : null}
       </div>
       <div className="flexCentre">
         <nav className="navlinks flexCentre">
