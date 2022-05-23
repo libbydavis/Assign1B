@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import { LoginContext } from "../App";
+import NavBar from "./NavBar";
+import { AppContext } from "../Context";
 
 function Login() {
-  const loggedIn = useContext(LoginContext);
+  const loggedIn = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,7 +76,7 @@ function Login() {
           Login
         </button>
 
-        <text className="errorMessage">{errorMessage}</text>
+        <h1 className="errorMessage">{errorMessage}</h1>
       </div>
     </>
   );
