@@ -8,17 +8,20 @@ import BrowseArticles from "./Components/BrowseArticles";
 import SubmitArticle from "./Components/SumitArticle";
 import Login from "./Components/Login";
 import NavBar from "./Components/NavBar";
+import AppProvider from "./Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <NavBar />
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="browseArticles" element={<BrowseArticles />} />
-      <Route path="submitArticle" element={<SubmitArticle />} />
-      <Route path="login" element={<Login />} />
-    </Routes>
+    <AppProvider>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="browseArticles" element={<BrowseArticles />} />
+        <Route path="submitArticle" element={<SubmitArticle />} />
+        <Route path="login" element={<Login />} />
+      </Routes>
+    </AppProvider>
   </BrowserRouter>
 );
 
