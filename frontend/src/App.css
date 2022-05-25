@@ -1,4 +1,4 @@
-.App {
+.App, .submitDiv {
   text-align: center;
 }
 
@@ -119,4 +119,13 @@ th:hover {
 .errorMessage {
   color: white;
   font-size: 16px;
+}
+
+.submitDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitDiv input {
+  margin: 10px auto 10px auto;
 }

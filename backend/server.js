@@ -16,6 +16,10 @@ MongoClient.connect(connectionString)
     console.log("Connected to database");
     const db = client.db("Assign1B");
 
+      server.post("/submitArticle", (req, res) => {
+          console.log("got it");
+      });
+
     server.get("/articles", (req, res) => {
       db.collection("Articles")
         .find()
@@ -39,6 +43,7 @@ MongoClient.connect(connectionString)
           }
         });
     });
+
   })
   .catch((error) => console.log(error));
 
