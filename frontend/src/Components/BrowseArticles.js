@@ -9,7 +9,8 @@ function BrowseArticles() {
         title: true,
         authors: false,
         yearPublished: false,
-        journalName: false
+        journalName: false,
+        rating: false
     })
     const [sortByCurrent, setSortByCurrent] = useState("title");
     const didMount = useRef(false);
@@ -45,7 +46,8 @@ function BrowseArticles() {
                 title: true,
                 authors: false,
                 yearPublished: false,
-                journalName: false
+                journalName: false,
+                rating: false
             })
         }
         else if (sortBy == "authors") {
@@ -53,7 +55,8 @@ function BrowseArticles() {
                 title: false,
                 authors: true,
                 yearPublished: false,
-                journalName: false
+                journalName: false,
+                rating: false
             })
         }
         else if (sortBy == "yearPublished") {
@@ -61,7 +64,8 @@ function BrowseArticles() {
                 title: false,
                 authors: false,
                 yearPublished: true,
-                journalName: false
+                journalName: false,
+                rating: false
             })
         }
         else if (sortBy == "journalName") {
@@ -69,7 +73,17 @@ function BrowseArticles() {
                 title: false,
                 authors: false,
                 yearPublished: false,
-                journalName: true
+                journalName: true,
+                rating: false
+            })
+        }
+        else if (sortBy == "rating") {
+            setShowSort({
+                title: false,
+                authors: false,
+                yearPublished: false,
+                journalName: false,
+                rating: true
             })
         }
     }
@@ -94,6 +108,8 @@ function BrowseArticles() {
                     <th>{showSort.yearPublished? <p onClick={() => changeSortOrder("yearPublished")}>Year Published <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("yearPublished")}>Year Published</p>}</th>
                     <th>{showSort.journalName? <p onClick={() => changeSortOrder("journalName")}>Journal Name <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("journalName")}>Journal Name</p>}</th>
                     <th>SE Practice</th>
+                    <th>{showSort.rating? <p onClick={() => changeSortOrder("rating")}>Rating <span className="sortOrder">{sortOrder}</span></p> : <p onClick={() => sort("rating")}>Rating</p>}</th>
+                    <th>Rating</th>
                     <th>Claim</th>
                     <th>Result of Evidence</th>
                     <th>Type of Research</th>
@@ -112,6 +128,7 @@ function BrowseArticles() {
                                 <td>{article.yearPublished}</td>
                                 <td>{article.journalName}</td>
                                 <td>{article.SEPractice}</td>
+                                <td>{article.rating}</td>
                                 <td>{article.claim}</td>
                                 <td>{article.evidenceResult}</td>
                                 <td>{article.researchType}</td>
