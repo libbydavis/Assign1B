@@ -17,7 +17,8 @@ MongoClient.connect(connectionString)
     const db = client.db("Assign1B");
 
       server.post("/submitArticle", (req, res) => {
-          console.log("got it");
+          res.status(200);
+          res.send();
       });
 
     server.get("/articles", (req, res) => {
