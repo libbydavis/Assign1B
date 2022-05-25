@@ -73,6 +73,9 @@ function SubmitArticle() {
                     if (res.status === 200) {
                         alert("Article Submitted");
                     }
+                    else if (res.status === 409) {
+                        alert("Article Unable To Be Submitted. " + res.data);
+                    }
                 })
                 .catch((er) => {
                     console.log(er);

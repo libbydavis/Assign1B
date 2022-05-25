@@ -17,8 +17,14 @@ MongoClient.connect(connectionString)
     const db = client.db("Assign1B");
 
       server.post("/submitArticle", (req, res) => {
-          res.status(200);
-          res.send();
+          db.collection("SubmittedArticles").insertOne(req.body).then(() => {
+                  res.status(200);
+                  res.send();
+              }
+          ).catch(err => {
+              res.status(409);
+              res.send(err);
+          });
       });
 
     server.get("/articles", (req, res) => {
