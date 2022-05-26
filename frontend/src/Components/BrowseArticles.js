@@ -41,6 +41,51 @@ function BrowseArticles() {
       articlesCopy.sort((a, b) => (a[sortBy] > b[sortBy] ? 1 : -1));
     } else if (sortOrder == "descending") {
       articlesCopy.sort((a, b) => (a[sortBy] > b[sortBy] ? 1 : -1)).reverse();
+        if (sortBy == "title") {
+            setShowSort({
+                title: true,
+                authors: false,
+                yearPublished: false,
+                journalName: false,
+                rating: false
+            })
+        }
+        else if (sortBy == "authors") {
+            setShowSort({
+                title: false,
+                authors: true,
+                yearPublished: false,
+                journalName: false,
+                rating: false
+            })
+        }
+        else if (sortBy == "yearPublished") {
+            setShowSort({
+                title: false,
+                authors: false,
+                yearPublished: true,
+                journalName: false,
+                rating: false
+            })
+        }
+        else if (sortBy == "journalName") {
+            setShowSort({
+                title: false,
+                authors: false,
+                yearPublished: false,
+                journalName: true,
+                rating: false
+            })
+        }
+        else if (sortBy == "rating") {
+            setShowSort({
+                title: false,
+                authors: false,
+                yearPublished: false,
+                journalName: false,
+                rating: true
+            })
+        }
     }
 
     setArticles(articlesCopy);
