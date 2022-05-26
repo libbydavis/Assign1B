@@ -132,6 +132,7 @@ function SubmitArticle() {
         <div className="submitDiv">
             <h2>Submit An Article To SPEED</h2>
             <input type="file" onChange={handleFileUpload} accept=".bibtex"></input>
+            <p id="fileUploadInfo">Accepted file formats include bibtex. Only upload one article per bibtex file.</p>
             <p style={{display: 'none'}} id="titleError" className="errorP">Please enter a title</p>
             <input placeholder="title" id="title" value={article.title} onChange={handleChange}></input>
             <p style={{display: 'none'}} id="authorsError" className="errorP">Please enter at least one author</p>
