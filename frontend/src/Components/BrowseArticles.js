@@ -270,6 +270,7 @@ function BrowseArticles() {
                     <td>{article.evidenceResult}</td>
                     <td>{article.researchType}</td>
                     <td>{article.participantType}</td>
+                    <input type = "checkbox"/>    
                   </tr>
                 );
               }

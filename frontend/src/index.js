@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BrowseArticles from "./Components/BrowseArticles";
-import SubmitArticle from "./Components/SumitArticle";
+import SubmitArticle from "./Components/SubmitArticle";
 import Login from "./Components/Login";
 import NavBar from "./Components/NavBar";
 import AppProvider from "./Context";
