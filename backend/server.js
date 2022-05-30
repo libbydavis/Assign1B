@@ -3,6 +3,7 @@ const PORT = process.env.PORT || 8082;
 const connectDB = require("./db");
 const getUsers = require("./db");
 const cors = require("cors");
+const {ObjectId} = require("mongodb");
 
 const server = express();
 
@@ -27,6 +28,19 @@ MongoClient.connect(connectionString)
           }
         });
     });
+
+      server.get("/viewSubmissions", (req, res) => {
+          let ID = "" + req.params.userID;
+          db.collection("SubmittedArticles")
+              .find({"userID": ID})
+              .toArray(function (err, result) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                      res.json(result);
+                  }
+              });
+      });
 
     server.post("/login", (req, res) => {
       db.collection("Users")

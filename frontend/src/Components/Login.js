@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./NavBar";
 import { AppContext } from "../Context";
 
 function Login() {
@@ -37,6 +36,7 @@ function Login() {
         user.userType === userType
       ) {
         loggedIn.setLoggedIn(true);
+        loggedIn.setUserType(user.userType);
         navigate("/");
       } else {
         setErrorMessage(

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import {useContext} from "react";
 import { LoginContext } from "../App";
 import { Link, Navigate } from "react-router-dom";
 import { AppContext } from "../Context";
@@ -29,7 +29,8 @@ function NavBar() {
         <nav className="navlinks flexCentre">
           <Link to="/">Home</Link>
           <Link to="/browseArticles">Browse Articles</Link>
-          <Link to="/submitArticle">Submit Article</Link>
+          {loggedIn.userType === "user" ? <Link to="/submitArticle">Submit Article</Link> : null}
+          {loggedIn.userType === "user" ? <Link to="/viewSubmissions">Submissions</Link> : null}
         </nav>
       </div>
     </div>
