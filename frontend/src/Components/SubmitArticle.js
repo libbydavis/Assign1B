@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import bibtexParse from "bibtex-parse-js";
 import {AppContext} from "../Context";
@@ -12,8 +12,14 @@ function SubmitArticle() {
         yearPublished: "",
         journalName: "",
         volume: "",
-        doi: ""
+        doi: "",
+        status: "submitted"
     });
+
+    useEffect(() => {
+        let date = new Date();
+        setArticle({...article, submitDate: date});
+    }, [])
 
     function handleChange(e) {
         let target = e.target.id + "";
@@ -84,7 +90,8 @@ function SubmitArticle() {
                             yearPublished: "",
                             journalName: "",
                             volume: "",
-                            doi: ""
+                            doi: "",
+                            status: "submitted"
                         });
 
                     }
