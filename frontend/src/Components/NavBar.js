@@ -1,10 +1,20 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import { LoginContext } from "../App";
 import { Link, Navigate } from "react-router-dom";
 import { AppContext } from "../Context";
 
-function NavBar() {
+function NavBar({props}) {
   const loggedIn = useContext(AppContext);
+  const [token, setToken] = useState();
+  const [userType, setUserType] = useState();
+
+  useEffect(() => {
+    setToken(sessionStorage.getItem('token'))
+  }, [sessionStorage.getItem('token')])
+
+  useEffect(() => {
+    setUserType(sessionStorage.getItem('userType'))
+  }, [sessionStorage.getItem('userType')])
 
   return (
     <div className="SPEEDnavbar">
@@ -17,7 +27,7 @@ function NavBar() {
             find the best articles relevant to your research project
           </h3>
         </div>
-        {!loggedIn.loggedIn ? (
+        {!token ? (
           <>
             <Link to="/login" className="loginButton buttonLinkStyle">
               Login
@@ -29,8 +39,8 @@ function NavBar() {
         <nav className="navlinks flexCentre">
           <Link to="/">Home</Link>
           <Link to="/browseArticles">Browse Articles</Link>
-          {loggedIn.userType === "user" ? <Link to="/submitArticle">Submit Article</Link> : null}
-          {loggedIn.userType === "user" ? <Link to="/viewSubmissions">Submissions</Link> : null}
+          {userType === "user" ? <Link to="/submitArticle">Submit Article</Link> : null}
+
         </nav>
       </div>
     </div>

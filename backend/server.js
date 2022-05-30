@@ -17,6 +17,20 @@ MongoClient.connect(connectionString)
     console.log("Connected to database");
     const db = client.db("Assign1B");
 
+      server.post("/submitArticle", (req, res) => {
+          const query = { userID: ObjectId(req.query.userID) };
+          const update = { $push: {submittedArticles: req.body}};
+          const options = { upsert: true };
+          db.collection("SubmittedArticles").updateOne(query, update, options).then(() => {
+                  res.status(200);
+                  res.send();
+              }
+          ).catch(err => {
+              res.status(409);
+              res.send(err);
+          });
+      });
+
     server.get("/articles", (req, res) => {
       db.collection("Articles")
         .find()
@@ -54,6 +68,7 @@ MongoClient.connect(connectionString)
           }
         });
     });
+
   })
   .catch((error) => console.log(error));
 
