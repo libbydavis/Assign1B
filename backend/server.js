@@ -17,7 +17,11 @@ MongoClient.connect(connectionString)
     const db = client.db("Assign1B");
 
       server.post("/submitArticle", (req, res) => {
-          db.collection("SubmittedArticles").insertOne(req.body).then(() => {
+          console.log(req.query.userID + " " + req.body);
+          const query = { userID: req.query.userID };
+          const update = { $push: {submittedArticles: req.body}};
+          const options = { upsert: true };
+          db.collection("SubmittedArticles").updateOne(query, update, options).then(() => {
                   res.status(200);
                   res.send();
               }

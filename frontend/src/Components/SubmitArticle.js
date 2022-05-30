@@ -1,9 +1,11 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import axios from "axios";
 import bibtexParse from "bibtex-parse-js";
+import {AppContext} from "../Context";
 
 
 function SubmitArticle() {
+    const loggedIn = useContext(AppContext);
     const [article, setArticle] = useState({
         title: "",
         authors: "",
@@ -28,7 +30,6 @@ function SubmitArticle() {
             validateLength(value, 1, "authorsError");
         }
 
-        console.log(article)
         //set input into state
         setArticle({...article, [target]: value});
 
@@ -69,7 +70,9 @@ function SubmitArticle() {
 
     function submit() {
         if (valid()) {
-            axios.post("http://localhost:8082/submitArticle", article)
+            axios.post("http://localhost:8082/submitArticle", article, {params: {
+                userID: "123"
+            }})
                 .then((res) => {
                     if (res.status === 200) {
                         alert("Article Submitted");
