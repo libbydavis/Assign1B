@@ -3,10 +3,19 @@ import { LoginContext } from "../App";
 import { Link, Navigate } from "react-router-dom";
 import { AppContext } from "../Context";
 
-function NavBar() {
+function NavBar({props}) {
   const loggedIn = useContext(AppContext);
-  const [token, setToken] = useState(sessionStorage.getItem('token'));
-  
+  const [token, setToken] = useState();
+  const [userType, setUserType] = useState();
+
+  useEffect(() => {
+    setToken(sessionStorage.getItem('token'))
+  }, [sessionStorage.getItem('token')])
+
+  useEffect(() => {
+    setUserType(sessionStorage.getItem('userType'))
+  }, [sessionStorage.getItem('userType')])
+
   return (
     <div className="SPEEDnavbar">
       <div>
@@ -30,7 +39,7 @@ function NavBar() {
         <nav className="navlinks flexCentre">
           <Link to="/">Home</Link>
           <Link to="/browseArticles">Browse Articles</Link>
-          {token ? <Link to="/submitArticle">Submit Article</Link> : null}
+          {userType === "user" ? <Link to="/submitArticle">Submit Article</Link> : null}
         </nav>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import { AppContext } from "../Context";
 
-function Login() {
+function Login({props}) {
   const loggedIn = useContext(AppContext);
 
   const [email, setEmail] = useState("");
@@ -37,8 +37,11 @@ function Login() {
         user.userType === userType
       ) {
         loggedIn.setLoggedIn(true);
+
+        //session
         sessionStorage.setItem('userType', user.userType);
         sessionStorage.setItem('token', user._id);
+
         navigate("/");
       } else {
         setErrorMessage(
