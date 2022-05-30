@@ -6,16 +6,22 @@ function Submissions() {
     const [submittedArticles, setSubmittedArticles] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8082/login", {
+        axios.get("http://localhost:8082/viewSubmissions", {
             params: {
                 userID: "627c5fcdec3e0ce3532e74e2"
             }
         }).then(res => {
-            setSubmittedArticles(res.data);
+            setSubmittedArticles(res.data[0].submittedArticles);
         }).catch(err => {
             console.log(err);
         })
-    })
+    }, []);
+
+    function formatDate(d) {
+        let date = new Date(d);
+        return date.toDateString();
+    }
+
     return (
         <div>
             <Table>
@@ -30,10 +36,10 @@ function Submissions() {
                 <tbody>
                 {submittedArticles.map((article, key) => {
                     return (
-                        <tr>
+                        <tr key={key}>
                             <td>{article.title}</td>
                             <td>{article.authors}</td>
-                            <td>{article.submitDate}</td>
+                            <td>{formatDate(article.submitDate)}</td>
                             <td>{article.status}</td>
                         </tr>
                     )

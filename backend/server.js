@@ -30,16 +30,17 @@ MongoClient.connect(connectionString)
     });
 
       server.get("/viewSubmissions", (req, res) => {
-          let ID = "" + req.params.userID;
           db.collection("SubmittedArticles")
-              .find({"userID": ID})
+              .find({userID: req.query.userID})
               .toArray(function (err, result) {
                   if (err) {
                       console.log(err);
                   } else {
+                      console.log(result);
                       res.json(result);
                   }
               });
+
       });
 
     server.post("/login", (req, res) => {
