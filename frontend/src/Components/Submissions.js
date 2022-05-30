@@ -6,9 +6,10 @@ function Submissions() {
     const [submittedArticles, setSubmittedArticles] = useState([]);
 
     useEffect(() => {
+        let ID = sessionStorage.getItem('token');
         axios.get("http://localhost:8082/viewSubmissions", {
             params: {
-                userID: "627c5fcdec3e0ce3532e74e2"
+                userID: ID
             }
         }).then(res => {
             setSubmittedArticles(res.data[0].submittedArticles);
@@ -23,8 +24,8 @@ function Submissions() {
     }
 
     return (
-        <div>
-            <Table>
+        <div className="flexCentre">
+            <Table className="table-bordered customTableWidth">
                 <thead>
                     <tr>
                         <th>Title</th>

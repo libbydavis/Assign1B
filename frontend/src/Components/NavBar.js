@@ -40,7 +40,7 @@ function NavBar({props}) {
           <Link to="/">Home</Link>
           <Link to="/browseArticles">Browse Articles</Link>
           {userType === "user" ? <Link to="/submitArticle">Submit Article</Link> : null}
-
+          {userType === "user" ? <Link to="/viewSubmissions">Submissions</Link> : null}
         </nav>
       </div>
     </div>

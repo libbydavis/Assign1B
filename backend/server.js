@@ -45,7 +45,7 @@ MongoClient.connect(connectionString)
 
       server.get("/viewSubmissions", (req, res) => {
           db.collection("SubmittedArticles")
-              .find({userID: req.query.userID})
+              .find({userID: ObjectId(req.query.userID)})
               .toArray(function (err, result) {
                   if (err) {
                       console.log(err);
