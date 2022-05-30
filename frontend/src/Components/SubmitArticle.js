@@ -5,7 +5,6 @@ import {AppContext} from "../Context";
 
 
 function SubmitArticle() {
-    const loggedIn = useContext(AppContext);
     const [article, setArticle] = useState({
         title: "",
         authors: "",
@@ -75,9 +74,10 @@ function SubmitArticle() {
     }
 
     function submit() {
+        const token = sessionStorage.getItem('token');
         if (valid()) {
             axios.post("http://localhost:8082/submitArticle", article, {params: {
-                userID: "123"
+                userID: token
             }})
                 .then((res) => {
                     if (res.status === 200) {

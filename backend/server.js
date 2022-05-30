@@ -3,6 +3,7 @@ const PORT = process.env.PORT || 8082;
 const connectDB = require("./db");
 const getUsers = require("./db");
 const cors = require("cors");
+const {ObjectId} = require("mongodb");
 
 const server = express();
 
@@ -17,8 +18,7 @@ MongoClient.connect(connectionString)
     const db = client.db("Assign1B");
 
       server.post("/submitArticle", (req, res) => {
-          console.log(req.query.userID + " " + req.body);
-          const query = { userID: req.query.userID };
+          const query = { userID: ObjectId(req.query.userID) };
           const update = { $push: {submittedArticles: req.body}};
           const options = { upsert: true };
           db.collection("SubmittedArticles").updateOne(query, update, options).then(() => {

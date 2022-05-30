@@ -37,6 +37,8 @@ function Login() {
         user.userType === userType
       ) {
         loggedIn.setLoggedIn(true);
+        sessionStorage.setItem('userType', user.userType);
+        sessionStorage.setItem('token', user._id);
         navigate("/");
       } else {
         setErrorMessage(
