@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./NavBar";
 import { AppContext } from "../Context";
 
 function Login({props}) {
@@ -41,7 +40,7 @@ function Login({props}) {
         //session
         sessionStorage.setItem('userType', user.userType);
         sessionStorage.setItem('token', user._id);
-
+        
         navigate("/");
       } else {
         setErrorMessage(

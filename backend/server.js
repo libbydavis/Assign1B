@@ -43,6 +43,20 @@ MongoClient.connect(connectionString)
         });
     });
 
+      server.get("/viewSubmissions", (req, res) => {
+          db.collection("SubmittedArticles")
+              .find({userID: req.query.userID})
+              .toArray(function (err, result) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                      console.log(result);
+                      res.json(result);
+                  }
+              });
+
+      });
+
     server.post("/login", (req, res) => {
       db.collection("Users")
         .find()
