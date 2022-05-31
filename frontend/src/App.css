@@ -1,4 +1,4 @@
-.App {
+.App, .submitDiv {
   text-align: center;
 }
 
@@ -41,6 +41,8 @@ a:hover {
   padding: 10px 20px;
   border-radius: 15px;
   font-weight: bold;
+  color: white;
+  border: none
 }
 
 .navlinks {
@@ -120,3 +122,22 @@ th:hover {
   color: white;
   font-size: 16px;
 }
+
+.submitDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitDiv input {
+  margin: 10px auto 10px auto;
+}
+
+.errorP {
+  margin-bottom: 0px;
+}
+
+.submitButton {
+  width: fit-content;
+  margin: auto;
+}
+
