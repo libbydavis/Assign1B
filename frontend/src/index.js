@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -9,6 +9,8 @@ import SubmitArticle from "./Components/SubmitArticle";
 import Login from "./Components/Login";
 import NavBar from "./Components/NavBar";
 import AppProvider from "./Context";
+import Submissions from "./Components/Submissions";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,6 +21,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="browseArticles" element={<BrowseArticles />} />
         <Route path="submitArticle" element={<SubmitArticle />} />
+          <Route path="viewSubmissions" element={<Submissions />} />
         <Route path="login" element={<Login />} />
       </Routes>
     </AppProvider>
