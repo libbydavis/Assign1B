@@ -43,19 +43,30 @@ MongoClient.connect(connectionString)
         });
     });
 
+
       server.get("/viewSubmissions", (req, res) => {
           db.collection("SubmittedArticles")
               .find({userID: ObjectId(req.query.userID)})
+        .toArray(function (err, result) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                    console.log(result);
+                      res.json(result);
+                  }
+              });
+        
+      server.get("/pendingArticles", (req, res) => {
+          db.collection("SubmittedArticles")
+              .find()
               .toArray(function (err, result) {
                   if (err) {
                       console.log(err);
                   } else {
-                      console.log(result);
-                      res.json(result);
+                    res.json(result);
                   }
               });
 
-      });
 
     server.post("/login", (req, res) => {
       db.collection("Users")
