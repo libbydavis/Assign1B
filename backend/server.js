@@ -28,6 +28,18 @@ MongoClient.connect(connectionString)
         });
     });
 
+      server.get("/pendingArticles", (req, res) => {
+          db.collection("SubmittedArticles")
+              .find()
+              .toArray(function (err, result) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                      res.json(result);
+                  }
+              });
+      });
+
     server.post("/login", (req, res) => {
       db.collection("Users")
         .find()

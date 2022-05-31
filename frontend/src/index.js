@@ -9,6 +9,7 @@ import SubmitArticle from "./Components/SubmitArticle";
 import Login from "./Components/Login";
 import NavBar from "./Components/NavBar";
 import AppProvider from "./Context";
+import PendingArticles from "./Components/PendingArticles";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +21,7 @@ root.render(
         <Route path="browseArticles" element={<BrowseArticles />} />
         <Route path="submitArticle" element={<SubmitArticle />} />
         <Route path="login" element={<Login />} />
+          <Route path="pendingArticles" element={<PendingArticles />} />
       </Routes>
     </AppProvider>
   </BrowserRouter>

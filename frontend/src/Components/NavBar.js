@@ -30,6 +30,7 @@ function NavBar() {
           <Link to="/">Home</Link>
           <Link to="/browseArticles">Browse Articles</Link>
           <Link to="/submitArticle">Submit Article</Link>
+          <Link to="/pendingArticles">Pending Articles</Link>
         </nav>
       </div>
     </div>
