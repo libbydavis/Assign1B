@@ -1,6 +1,7 @@
 import Table from "react-bootstrap/Table";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import FormatDate from "./DateUtility";
 
 function PendingArticles() {
     const [pendingArticles, setPendingArticles] = useState([]);
@@ -15,10 +16,6 @@ function PendingArticles() {
         })
     }, []);
 
-    function formatDate(d) {
-        let date = new Date(d);
-        return date.toDateString();
-    }
 
     return (
         <div className="flexCentre">
@@ -38,7 +35,7 @@ function PendingArticles() {
                             <tr key={key}>
                                 <td>{article.title}</td>
                                 <td>{article.authors}</td>
-                                <td>{formatDate(article.submitDate)}</td>
+                                <td>{FormatDate(article.submitDate)}</td>
                                 <td>{article.status}</td>
                             </tr>
                         )
