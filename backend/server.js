@@ -57,8 +57,8 @@ MongoClient.connect(connectionString)
               });
       });
 
-      server.get("/pendingArticles", (req, res) => {
-          db.collection("SubmittedArticles")
+      server.get("/moderatedArticles", (req, res) => {
+          db.collection("ModeratedArticles")
               .find()
               .toArray(function (err, result) {
                   if (err) {

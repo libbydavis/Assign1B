@@ -7,7 +7,7 @@ function PendingArticles() {
     const [pendingArticles, setPendingArticles] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8082/pendingArticles", {
+        axios.get("http://localhost:8082/moderatedArticles", {
         }).then(res => {
             setPendingArticles(res.data);
             console.log(res.data)
