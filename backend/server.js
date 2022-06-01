@@ -71,6 +71,7 @@ MongoClient.connect(connectionString)
       }
     });
 
+    // Adds article to moderated articles
     server.post("/approveArticle", (req, res) => {
       const query = { userID: ObjectId(req.query.userID) };
       const update = { $push: { moderatedArticles: req.body } };
@@ -87,6 +88,24 @@ MongoClient.connect(connectionString)
         });
     });
 
+    // Adds article to removed articles
+    server.post("/removeArticle", (req, res) => {
+      const query = { userID: ObjectId(req.query.userID) };
+      const update = { $push: { removedArticles: req.body } };
+      const options = { upsert: true };
+      db.collection("RemovedArticles")
+        .updateOne(query, update, options)
+        .then(() => {
+          res.status(200);
+          res.send();
+        })
+        .catch((err) => {
+          res.status(409);
+          res.send(err);
+        });
+    });
+
+    // Removes article from submitted articles
     server.post("/deleteSubmittedArticle", (req, res) => {
       const query = { userID: ObjectId(req.query.userID) };
       const update = {

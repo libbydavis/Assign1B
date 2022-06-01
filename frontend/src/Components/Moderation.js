@@ -29,7 +29,7 @@ function Morderation() {
     return date.toDateString();
   }
 
-  async function approveArticle(article, userID, key, title) {
+  async function approveArticle(article, userID, title) {
     article = {
       title: article.title,
       authors: article.authors,
@@ -81,6 +81,58 @@ function Morderation() {
     setPendingArticles([]);
   }
 
+  async function removeArticle(article, userID, title) {
+    article = {
+      title: article.title,
+      authors: article.authors,
+      yearPublished: article.yearPublished,
+      journalName: article.journalName,
+      volume: article.volume,
+      doi: article.doi,
+      submitDate: article.submitDate,
+      status: "removed",
+    };
+
+    // Add the article to our removedArticles table
+    axios
+      .post("http://localhost:8082/removeArticle", article, {
+        params: {
+          userID: userID,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Article Removed");
+        } else if (res.status === 409) {
+          alert("Article Unable To Be Removed. " + res.data);
+        }
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+
+    // Delete the article from our submittedArticles table
+    axios
+      .post("http://localhost:8082/deleteSubmittedArticle", article, {
+        params: {
+          userID: userID,
+          title: title,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Article Removed from old table");
+        } else if (res.status === 409) {
+          alert("Article Unable To Be removed");
+        }
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+
+    setPendingArticles([]);
+  }
+
   return (
     <div className="flexCentre">
       <Table className="table-bordered customTableWidth">
@@ -91,6 +143,7 @@ function Morderation() {
             <th>Date Submitted</th>
             <th>Status</th>
             <th>Approve</th>
+            <th>Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -108,10 +161,19 @@ function Morderation() {
                       <td>
                         <button
                           onClick={() =>
-                            approveArticle(article, userID, key, article.title)
+                            approveArticle(article, userID, article.title)
                           }
                         >
                           Approve
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() =>
+                            removeArticle(article, userID, article.title)
+                          }
+                        >
+                          Remove
                         </button>
                       </td>
                     </tr>
