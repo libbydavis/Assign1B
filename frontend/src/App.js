@@ -28,6 +28,12 @@ function App() {
           "Moderator Notificaiton: You have pending articles avaliable to moderate"
         );
       }
+    } else if (pendingArticles && userType === "analyst") {
+      if (pendingArticles.length > 0) {
+        alert(
+          "Analyst Notificaiton: You have pending articles avaliable to analyse"
+        );
+      }
     }
   }, [pendingArticles]);
 

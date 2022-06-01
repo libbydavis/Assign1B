@@ -46,7 +46,7 @@ function NavBar({ props }) {
             <Link to="/viewSubmissions">Submissions</Link>
           ) : null}
           {userType === "moderator" ? (
-            <Link to="/moderation">Morderation</Link>
+            <Link to="/moderation">Moderation</Link>
           ) : null}
         </nav>
       </div>
