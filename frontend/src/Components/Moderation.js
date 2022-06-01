@@ -20,16 +20,16 @@ function Morderation() {
     getArticles();
   }, []);
 
+  useEffect(() => {
+    getArticles();
+  }, [pendingArticles]);
+
   function formatDate(d) {
     let date = new Date(d);
     return date.toDateString();
   }
 
-  function approveArticle(article, userID, key) {
-    console.log(article);
-    console.log(userID);
-    console.log(key);
-
+  async function approveArticle(article, userID, key, title) {
     article = {
       title: article.title,
       authors: article.authors,
@@ -64,7 +64,7 @@ function Morderation() {
       .post("http://localhost:8082/deleteSubmittedArticle", article, {
         params: {
           userID: userID,
-          index: key,
+          title: title,
         },
       })
       .then((res) => {
@@ -78,7 +78,7 @@ function Morderation() {
         console.log(er);
       });
 
-    getArticles();
+    setPendingArticles([]);
   }
 
   return (
@@ -107,7 +107,9 @@ function Morderation() {
                       <td>{article.status}</td>
                       <td>
                         <button
-                          onClick={() => approveArticle(article, userID, key)}
+                          onClick={() =>
+                            approveArticle(article, userID, key, article.title)
+                          }
                         >
                           Approve
                         </button>

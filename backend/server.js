@@ -87,6 +87,25 @@ MongoClient.connect(connectionString)
         });
     });
 
+    server.post("/deleteSubmittedArticle", (req, res) => {
+      const query = { userID: ObjectId(req.query.userID) };
+      const update = {
+        $pull: { submittedArticles: { title: req.query.title } },
+      };
+      const options = { upsert: false };
+
+      db.collection("SubmittedArticles")
+        .updateOne(query, update, options)
+        .then(() => {
+          res.status(200);
+          res.send();
+        })
+        .catch((err) => {
+          res.status(409);
+          res.send(err);
+        });
+    });
+
     server.post("/login", (req, res) => {
       db.collection("Users")
         .find()
