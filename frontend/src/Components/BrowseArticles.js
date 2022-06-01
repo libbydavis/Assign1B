@@ -220,6 +220,7 @@ function BrowseArticles() {
                 )}
               </th>
               <th>SE Practice</th>
+
               <th>
                 {showSort.rating ? (
                   <p onClick={() => changeSortOrder("rating")}>
