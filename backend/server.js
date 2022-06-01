@@ -55,7 +55,8 @@ MongoClient.connect(connectionString)
                       res.json(result);
                   }
               });
-        
+      });
+
       server.get("/pendingArticles", (req, res) => {
           db.collection("SubmittedArticles")
               .find()
@@ -63,9 +64,10 @@ MongoClient.connect(connectionString)
                   if (err) {
                       console.log(err);
                   } else {
-                    res.json(result);
+                      res.json(result);
                   }
-              });
+              })
+      });
 
 
     server.post("/login", (req, res) => {
