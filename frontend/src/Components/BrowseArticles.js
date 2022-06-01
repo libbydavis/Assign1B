@@ -230,10 +230,10 @@ function BrowseArticles() {
                   <p onClick={() => sort("rating")}>Rating</p>
                 )}
               </th>
-              <th>Claim <input onClick = {() => hideandshow ("claim") }type = "checkbox"/> </th>
-              <th>Result of Evidence </th>
-              <th>Type of Research</th>
-              <th>Type of Participant</th>
+              <th>Claim <input onClick = {() => hideandshow ("Claim") }type = "checkbox"/> </th>
+              <th>Result of Evidence <input onClick = {() => hideandshow ("ResultofEvidence") }type = "checkbox"/> </th>
+              <th>Type of Research <input onClick = {() => hideandshow ("TypeofResearch") }type = "checkbox"/></th>
+              <th>Type of Participant<input onClick = {() => hideandshow ("TypeofParticipant") }type = "checkbox"/></th>
             </tr>
           </thead>
           <tbody>
@@ -254,14 +254,14 @@ function BrowseArticles() {
                             );
                           })}
                     </td>
-                    <td>{article.yearPublished}</td>
-                    <td>{article.journalName}</td>
-                    <td>{article.SEPractice}</td>
-                    <td>{article.rating}</td>
+                    {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td> </td>}
+                    {columnView.journalName ? <td>{article.journalName}</td> : <td> </td>}
+                    {columnView.SEPractice ? <td>{article.SEPractice}</td> : <td> </td>}
+                    {columnView.rating ? <td>{article.rating}</td> : <td> </td>}
                     {columnView.claim ? <td>{article.claim}</td> : <td> </td>}
-                    <td>{article.evidenceResult}</td>
-                    <td>{article.researchType}</td>
-                    <td>{article.participantType}</td>
+                    {columnView.evidenceResult ? <td>{article.evidenceResult}</td> : <td> </td>}
+                    {columnView.researchType ? <td>{article.researchType}</td> : <td> </td>}
+                    {columnView.participantType ? <td>{article.participantType}</td> : <td> </td>}
                   </tr>
                 );
               } else if (selectedPractice === "All") {
@@ -280,14 +280,14 @@ function BrowseArticles() {
                             );
                           })}
                     </td>
-                    <td>{article.yearPublished}</td>
-                    <td>{article.journalName}</td>
-                    <td>{article.SEPractice}</td>
-                    <td>{article.rating}</td>
+                    {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td> </td>}
+                    {columnView.journalName ? <td>{article.journalName}</td> : <td> </td>}
+                    {columnView.SEPractice ? <td>{article.SEPractice}</td> : <td> </td>}
+                    {columnView.rating ? <td>{article.rating}</td> : <td> </td>}
                     {columnView.claim ? <td>{article.claim}</td> : <td> </td>}
-                    <td>{article.evidenceResult}</td>
-                    <td>{article.researchType}</td>
-                    <td>{article.participantType}</td>   
+                    {columnView.evidenceResult ? <td>{article.evidenceResult}</td> : <td> </td>}
+                    {columnView.researchType ? <td>{article.researchType}</td> : <td> </td>}
+                    {columnView.participantType ? <td>{article.participantType}</td> : <td> </td>}
                   </tr>
                 );
               }
