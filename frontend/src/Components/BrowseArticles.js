@@ -11,6 +11,18 @@ function BrowseArticles() {
     yearPublished: false,
     journalName: false,
   });
+  const [columnView, setColumnView] = useState({
+    title: true,
+    authors: true,
+    yearPublished: true,
+    journalName: true,
+    SEPractice: true,
+    rating: true,
+    claim: true,
+    evidenceResult: true,
+    researchType: true,
+    participantType: true
+  })
   const [sortByCurrent, setSortByCurrent] = useState("title");
   const [selectedPractice, setSelectedPractice] = useState("All");
   const didMount = useRef(false);
@@ -132,7 +144,11 @@ function BrowseArticles() {
       : setSortOrder("descending");
   }
 
-  useEffect(() => {
+  function hideandshow( columnName){
+   let hidden = !columnView[columnName] 
+   setColumnView({...columnView,[columnName]: hidden})
+  }
+   useEffect(() => {
     sort(sortByCurrent);
   }, [sortOrder]);
 
@@ -212,8 +228,8 @@ function BrowseArticles() {
                   <p onClick={() => sort("rating")}>Rating</p>
                 )}
               </th>
-              <th>Claim</th>
-              <th>Result of Evidence</th>
+              <th>Claim <input onClick = {() => hideandshow ("claim") }type = "checkbox"/> </th>
+              <th>Result of Evidence </th>
               <th>Type of Research</th>
               <th>Type of Participant</th>
             </tr>
@@ -240,7 +256,7 @@ function BrowseArticles() {
                     <td>{article.journalName}</td>
                     <td>{article.SEPractice}</td>
                     <td>{article.rating}</td>
-                    <td>{article.claim}</td>
+                    {columnView.claim ? <td>{article.claim}</td> : null}
                     <td>{article.evidenceResult}</td>
                     <td>{article.researchType}</td>
                     <td>{article.participantType}</td>
@@ -269,8 +285,7 @@ function BrowseArticles() {
                     <td>{article.claim}</td>
                     <td>{article.evidenceResult}</td>
                     <td>{article.researchType}</td>
-                    <td>{article.participantType}</td>
-                    <input type = "checkbox"/>    
+                    <td>{article.participantType}</td>   
                   </tr>
                 );
               }
@@ -278,6 +293,7 @@ function BrowseArticles() {
           </tbody>
         </Table>
       </div>
+      
     </>
   );
 }
