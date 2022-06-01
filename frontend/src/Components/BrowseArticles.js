@@ -203,6 +203,7 @@ function BrowseArticles() {
                 )}
               </th>
               <th>SE Practice</th>
+
               <th>
                 {showSort.rating ? (
                   <p onClick={() => changeSortOrder("rating")}>
@@ -270,7 +271,7 @@ function BrowseArticles() {
                     <td>{article.evidenceResult}</td>
                     <td>{article.researchType}</td>
                     <td>{article.participantType}</td>
-                    <input type = "checkbox"/>    
+                    <input type="checkbox" />
                   </tr>
                 );
               }

@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 8082;
 const connectDB = require("./db");
 const getUsers = require("./db");
 const cors = require("cors");
-const {ObjectId} = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 const server = express();
 
@@ -17,19 +17,21 @@ MongoClient.connect(connectionString)
     console.log("Connected to database");
     const db = client.db("Assign1B");
 
-      server.post("/submitArticle", (req, res) => {
-          const query = { userID: ObjectId(req.query.userID) };
-          const update = { $push: {submittedArticles: req.body}};
-          const options = { upsert: true };
-          db.collection("SubmittedArticles").updateOne(query, update, options).then(() => {
-                  res.status(200);
-                  res.send();
-              }
-          ).catch(err => {
-              res.status(409);
-              res.send(err);
-          });
-      });
+    server.post("/submitArticle", (req, res) => {
+      const query = { userID: ObjectId(req.query.userID) };
+      const update = { $push: { submittedArticles: req.body } };
+      const options = { upsert: true };
+      db.collection("SubmittedArticles")
+        .updateOne(query, update, options)
+        .then(() => {
+          res.status(200);
+          res.send();
+        })
+        .catch((err) => {
+          res.status(409);
+          res.send(err);
+        });
+    });
 
     server.get("/articles", (req, res) => {
       db.collection("Articles")
@@ -43,19 +45,47 @@ MongoClient.connect(connectionString)
         });
     });
 
-      server.get("/viewSubmissions", (req, res) => {
-          db.collection("SubmittedArticles")
-              .find({userID: ObjectId(req.query.userID)})
-              .toArray(function (err, result) {
-                  if (err) {
-                      console.log(err);
-                  } else {
-                      console.log(result);
-                      res.json(result);
-                  }
-              });
+    server.get("/viewSubmissions", (req, res) => {
+      if (req.query.userID) {
+        db.collection("SubmittedArticles")
+          .find({ userID: ObjectId(req.query.userID) })
+          .toArray(function (err, result) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(result);
+              res.json(result);
+            }
+          });
+      } else {
+        db.collection("SubmittedArticles")
+          .find()
+          .toArray(function (err, result) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(result);
+              res.json(result);
+            }
+          });
+      }
+    });
 
-      });
+    server.post("/approveArticle", (req, res) => {
+      const query = { userID: ObjectId(req.query.userID) };
+      const update = { $push: { moderatedArticles: req.body } };
+      const options = { upsert: true };
+      db.collection("ModeratedArticles")
+        .updateOne(query, update, options)
+        .then(() => {
+          res.status(200);
+          res.send();
+        })
+        .catch((err) => {
+          res.status(409);
+          res.send(err);
+        });
+    });
 
     server.post("/login", (req, res) => {
       db.collection("Users")
@@ -68,7 +98,6 @@ MongoClient.connect(connectionString)
           }
         });
     });
-
   })
   .catch((error) => console.log(error));
 

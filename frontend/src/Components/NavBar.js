@@ -1,20 +1,20 @@
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../App";
 import { Link, Navigate } from "react-router-dom";
 import { AppContext } from "../Context";
 
-function NavBar({props}) {
+function NavBar({ props }) {
   const loggedIn = useContext(AppContext);
   const [token, setToken] = useState();
   const [userType, setUserType] = useState();
 
   useEffect(() => {
-    setToken(sessionStorage.getItem('token'))
-  }, [sessionStorage.getItem('token')])
+    setToken(sessionStorage.getItem("token"));
+  }, [sessionStorage.getItem("token")]);
 
   useEffect(() => {
-    setUserType(sessionStorage.getItem('userType'))
-  }, [sessionStorage.getItem('userType')])
+    setUserType(sessionStorage.getItem("userType"));
+  }, [sessionStorage.getItem("userType")]);
 
   return (
     <div className="SPEEDnavbar">
@@ -39,8 +39,15 @@ function NavBar({props}) {
         <nav className="navlinks flexCentre">
           <Link to="/">Home</Link>
           <Link to="/browseArticles">Browse Articles</Link>
-          {userType === "user" ? <Link to="/submitArticle">Submit Article</Link> : null}
-          {userType === "user" ? <Link to="/viewSubmissions">Submissions</Link> : null}
+          {userType === "user" ? (
+            <Link to="/submitArticle">Submit Article</Link>
+          ) : null}
+          {userType === "user" ? (
+            <Link to="/viewSubmissions">Submissions</Link>
+          ) : null}
+          {userType === "moderator" ? (
+            <Link to="/moderation">Morderation</Link>
+          ) : null}
         </nav>
       </div>
     </div>
