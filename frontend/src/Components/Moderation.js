@@ -2,7 +2,7 @@ import Table from "react-bootstrap/Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function Morderation() {
+function Moderation() {
   const [pendingArticles, setPendingArticles] = useState([]);
 
   function getArticles() {
@@ -188,4 +188,4 @@ function Morderation() {
   );
 }
 
-export default Morderation;
+export default Moderation;
