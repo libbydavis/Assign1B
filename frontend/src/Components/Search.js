@@ -1,9 +1,8 @@
-const search = () => {
+const Search = () => {
     return <>
     <div className="App">
       <h1>Search</h1>
-      <Container />
     </div>
     </>
 }
-
+export default Search; 

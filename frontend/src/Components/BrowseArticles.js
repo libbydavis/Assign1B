@@ -1,6 +1,7 @@
 import Table from "react-bootstrap/Table";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import Search from "./Search";
 
 function BrowseArticles() {
   const [articles, setArticles] = useState([]);
@@ -168,7 +169,7 @@ function BrowseArticles() {
           </select>
         </div>
       </div>
-
+    
       <div className="flexCentre">
         <Table
           data-testid="tableTest"
@@ -256,7 +257,7 @@ function BrowseArticles() {
                     <td>{article.journalName}</td>
                     <td>{article.SEPractice}</td>
                     <td>{article.rating}</td>
-                    {columnView.claim ? <td>{article.claim}</td> : null}
+                    {columnView.claim ? <td>{article.claim}</td> : <td> </td>}
                     <td>{article.evidenceResult}</td>
                     <td>{article.researchType}</td>
                     <td>{article.participantType}</td>
@@ -282,7 +283,7 @@ function BrowseArticles() {
                     <td>{article.journalName}</td>
                     <td>{article.SEPractice}</td>
                     <td>{article.rating}</td>
-                    <td>{article.claim}</td>
+                    {columnView.claim ? <td>{article.claim}</td> : <td> </td>}
                     <td>{article.evidenceResult}</td>
                     <td>{article.researchType}</td>
                     <td>{article.participantType}</td>   
