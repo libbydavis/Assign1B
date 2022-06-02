@@ -4,7 +4,7 @@ import axios from "axios";
 
 function Moderation() {
   const [pendingArticles, setPendingArticles] = useState([]);
-  const [SEPractice, setSEPractice] = useState();
+  const [SEPractice, setSEPractice] = useState("TDD");
 
   function getArticles() {
     axios
@@ -31,6 +31,9 @@ function Moderation() {
   }
 
   async function analyseArticle(article, userID, title) {
+    console.log(userID);
+    console.log(title);
+
     article = {
       title: article.title,
       authors: article.authors,
@@ -43,7 +46,9 @@ function Moderation() {
       sepractice: SEPractice,
     };
 
-    // Add the article to our moderatedArticles table
+    console.log(SEPractice);
+
+    // // Add the article to our moderatedArticles table
     axios
       .post("http://localhost:8082/analyseArticle", article, {
         params: {
