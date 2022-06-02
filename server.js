@@ -5,7 +5,6 @@ const getUsers = require("./db");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
 const path = require("path");
-const path = require("path");
 const server = express();
 
 //const dbConnect = dbo.getDb();
