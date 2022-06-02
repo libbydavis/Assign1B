@@ -4,10 +4,11 @@ import axios from "axios";
 
 function Moderation() {
   const [pendingArticles, setPendingArticles] = useState([]);
+  const [SEPractice, setSEPractice] = useState();
 
   function getArticles() {
     axios
-      .get("http://localhost:8082/viewSubmissions", {})
+      .get("http://localhost:8082/viewModerated", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
@@ -29,7 +30,7 @@ function Moderation() {
     return date.toDateString();
   }
 
-  async function approveArticle(article, userID, title) {
+  async function analyseArticle(article, userID, title) {
     article = {
       title: article.title,
       authors: article.authors,
@@ -39,30 +40,30 @@ function Moderation() {
       doi: article.doi,
       submitDate: article.submitDate,
       status: "moderated",
-      sepractice: article.sepractice,
+      sepractice: SEPractice,
     };
 
     // Add the article to our moderatedArticles table
     axios
-      .post("http://localhost:8082/approveArticle", article, {
+      .post("http://localhost:8082/analyseArticle", article, {
         params: {
           userID: userID,
         },
       })
       .then((res) => {
         if (res.status === 200) {
-          alert("Article Approved");
+          alert("Article Analysed");
         } else if (res.status === 409) {
-          alert("Article Unable To Be Approved. " + res.data);
+          alert("Article Unable To Be Analysed. " + res.data);
         }
       })
       .catch((er) => {
         console.log(er);
       });
 
-    // Delete the article from our submittedArticles table
+    // Delete the article from our moderatedArtiles table
     axios
-      .post("http://localhost:8082/deleteSubmittedArticle", article, {
+      .post("http://localhost:8082/deleteModeratedArticle", article, {
         params: {
           userID: userID,
           title: title,
@@ -70,61 +71,9 @@ function Moderation() {
       })
       .then((res) => {
         if (res.status === 200) {
-          alert("Article Removed from old table");
+          alert("Article Removed from Submitted");
         } else if (res.status === 409) {
-          alert("Article Unable To Be removed");
-        }
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-
-    setPendingArticles([]);
-  }
-
-  async function removeArticle(article, userID, title) {
-    article = {
-      title: article.title,
-      authors: article.authors,
-      yearPublished: article.yearPublished,
-      journalName: article.journalName,
-      volume: article.volume,
-      doi: article.doi,
-      submitDate: article.submitDate,
-      status: "removed",
-    };
-
-    // Add the article to our removedArticles table
-    axios
-      .post("http://localhost:8082/removeArticle", article, {
-        params: {
-          userID: userID,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          alert("Article Removed");
-        } else if (res.status === 409) {
-          alert("Article Unable To Be Removed. " + res.data);
-        }
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-
-    // Delete the article from our submittedArticles table
-    axios
-      .post("http://localhost:8082/deleteSubmittedArticle", article, {
-        params: {
-          userID: userID,
-          title: title,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          alert("Article Removed from old table");
-        } else if (res.status === 409) {
-          alert("Article Unable To Be removed");
+          alert("Article Unable To Be Removed from Submitted");
         }
       })
       .catch((er) => {
@@ -143,16 +92,16 @@ function Moderation() {
             <th>Authors</th>
             <th>Date Submitted</th>
             <th>Status</th>
-            <th>Approve</th>
-            <th>Remove</th>
+            <th>Choose SE Practice</th>
+            <th>Submit</th>
           </tr>
         </thead>
         <tbody>
           {pendingArticles.map((user, key) => {
             let userID = user.userID;
-            if (user.submittedArticles.length > 0) {
-              return user.submittedArticles.map((article, key) => {
-                if (article.status === "submitted") {
+            if (user.moderatedArticles.length > 0) {
+              return user.moderatedArticles.map((article, key) => {
+                if (article.status === "moderated") {
                   return (
                     <tr key={key}>
                       <td>{article.title}</td>
@@ -160,21 +109,23 @@ function Moderation() {
                       <td>{formatDate(article.submitDate)}</td>
                       <td>{article.status}</td>
                       <td>
-                        <button
-                          onClick={() =>
-                            approveArticle(article, userID, article.title)
-                          }
+                        <select
+                          name="sepractice"
+                          id="sepractice"
+                          onChange={(e) => setSEPractice(e.target.value)}
                         >
-                          Approve
-                        </button>
+                          <option value="TDD">TDD</option>
+                          <option value="MDD">Mob Driven Development</option>
+                          <option value="Agile">Agile</option>
+                        </select>
                       </td>
                       <td>
                         <button
                           onClick={() =>
-                            removeArticle(article, userID, article.title)
+                            analyseArticle(article, userID, article.title)
                           }
                         >
-                          Remove
+                          Submit
                         </button>
                       </td>
                     </tr>

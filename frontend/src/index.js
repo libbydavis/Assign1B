@@ -11,6 +11,7 @@ import NavBar from "./Components/NavBar";
 import AppProvider from "./Context";
 import Submissions from "./Components/Submissions";
 import Moderation from "./Components/Moderation";
+import Analyse from "./Components/Analyse";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -23,6 +24,7 @@ root.render(
         <Route path="submitArticle" element={<SubmitArticle />} />
         <Route path="viewSubmissions" element={<Submissions />} />
         <Route path="moderation" element={<Moderation />} />
+        <Route path="analyse" element={<Analyse />} />
         <Route path="login" element={<Login />} />
       </Routes>
     </AppProvider>

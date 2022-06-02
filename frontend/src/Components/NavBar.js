@@ -48,6 +48,7 @@ function NavBar({ props }) {
           {userType === "moderator" ? (
             <Link to="/moderation">Moderation</Link>
           ) : null}
+          {userType === "analyst" ? <Link to="/analyse">Analyse</Link> : null}
         </nav>
       </div>
     </div>

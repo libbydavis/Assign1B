@@ -71,12 +71,42 @@ MongoClient.connect(connectionString)
       }
     });
 
+    server.get("/viewModerated", (req, res) => {
+      db.collection("ModeratedArticles")
+        .find()
+        .toArray(function (err, result) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(result);
+            res.json(result);
+          }
+        });
+    });
+
     // Adds article to moderated articles
     server.post("/approveArticle", (req, res) => {
       const query = { userID: ObjectId(req.query.userID) };
       const update = { $push: { moderatedArticles: req.body } };
       const options = { upsert: true };
       db.collection("ModeratedArticles")
+        .updateOne(query, update, options)
+        .then(() => {
+          res.status(200);
+          res.send();
+        })
+        .catch((err) => {
+          res.status(409);
+          res.send(err);
+        });
+    });
+
+    // Adds article to analysed articles
+    server.post("/analyseArticle", (req, res) => {
+      const query = { userID: ObjectId(req.query.userID) };
+      const update = { $push: { articles: req.body } };
+      const options = { upsert: true };
+      db.collection("Articles")
         .updateOne(query, update, options)
         .then(() => {
           res.status(200);
@@ -114,6 +144,26 @@ MongoClient.connect(connectionString)
       const options = { upsert: false };
 
       db.collection("SubmittedArticles")
+        .updateOne(query, update, options)
+        .then(() => {
+          res.status(200);
+          res.send();
+        })
+        .catch((err) => {
+          res.status(409);
+          res.send(err);
+        });
+    });
+
+    // Removes article from submitted articles
+    server.post("/deleteModeratedArticle", (req, res) => {
+      const query = { userID: ObjectId(req.query.userID) };
+      const update = {
+        $pull: { moderatedArticles: { title: req.query.title } },
+      };
+      const options = { upsert: false };
+
+      db.collection("ModeratedArticles")
         .updateOne(query, update, options)
         .then(() => {
           res.status(200);
