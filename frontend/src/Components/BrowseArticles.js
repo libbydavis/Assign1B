@@ -146,7 +146,7 @@ function BrowseArticles() {
   }
 
   function hideandshow( columnName){
-   let hidden = !columnView[columnName] 
+   let hidden = !columnView[columnName]
    setColumnView({...columnView,[columnName]: hidden})
   }
    useEffect(() => {
@@ -169,7 +169,7 @@ function BrowseArticles() {
           </select>
         </div>
       </div>
-    
+
       <div className="flexCentre">
         <Table
           data-testid="tableTest"
@@ -280,14 +280,14 @@ function BrowseArticles() {
                             );
                           })}
                     </td>
-                    {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td> </td>}
-                    {columnView.journalName ? <td>{article.journalName}</td> : <td> </td>}
-                    {columnView.SEPractice ? <td>{article.SEPractice}</td> : <td> </td>}
-                    {columnView.rating ? <td>{article.rating}</td> : <td> </td>}
-                    {columnView.claim ? <td>{article.claim}</td> : <td> </td>}
-                    {columnView.evidenceResult ? <td>{article.evidenceResult}</td> : <td> </td>}
-                    {columnView.researchType ? <td>{article.researchType}</td> : <td> </td>}
-                    {columnView.participantType ? <td>{article.participantType}</td> : <td> </td>}
+                    {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td></td>}
+                    {columnView.journalName ? <td>{article.journalName}</td> : <td></td>}
+                    {columnView.SEPractice ? <td>{article.SEPractice}</td> : <td></td>}
+                    {columnView.rating ? <td>{article.rating}</td> : <td></td>}
+                    {columnView.claim ? <td>{article.claim}</td> : <td></td>}
+                    {columnView.evidenceResult ? <td>{article.evidenceResult}</td> : <td></td>}
+                    {columnView.researchType ? <td>{article.researchType}</td> : <td></td>}
+                    {columnView.participantType ? <td>{article.participantType}</td> : <td></td>}
                   </tr>
                 );
               }
@@ -295,7 +295,7 @@ function BrowseArticles() {
           </tbody>
         </Table>
       </div>
-      
+
     </>
   );
 }
