@@ -40,6 +40,10 @@ function Moderation() {
       submitDate: article.submitDate,
       status: "moderated",
       sepractice: article.sepractice,
+      claim: "",
+      resultOfEvidence: "",
+      typeOfResearch: "",
+      typeOfParticipant: "",
     };
 
     // Add the article to our moderatedArticles table

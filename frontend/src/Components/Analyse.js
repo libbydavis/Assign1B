@@ -6,6 +6,11 @@ function Moderation() {
   const [pendingArticles, setPendingArticles] = useState([]);
   const [SEPractice, setSEPractice] = useState("TDD");
 
+  const [claim, setClaim] = useState("");
+  const [resultOfEvidence, setResultOfEvidence] = useState("");
+  const [typeOfResearch, setTypeOfResearch] = useState("");
+  const [typeOfParticipant, setTypeOfParticipant] = useState("");
+
   function getArticles() {
     axios
       .get("http://localhost:8082/viewModerated", {})
@@ -30,62 +35,71 @@ function Moderation() {
     return date.toDateString();
   }
 
-  async function analyseArticle(article, userID, title) {
-    console.log(userID);
-    console.log(title);
+  function analyseArticle(article, userID, title) {
+    console.log(article);
+    if (
+      article.claim.length > 0 &&
+      article.resultOfEvidence.length > 0 &&
+      article.typeOfResearch.length > 0 &&
+      article.typeOfParticipant.length > 0
+    ) {
+      article = {
+        title: article.title,
+        authors: article.authors,
+        yearPublished: article.yearPublished,
+        journalName: article.journalName,
+        volume: article.volume,
+        doi: article.doi,
+        submitDate: article.submitDate,
+        status: "analysed",
+        sepractice: article.SEPractice,
+        claim: article.claim,
+        resultOfEvidence: article.resultOfEvidence,
+        typeOfResearch: article.typeOfResearch,
+        typeOfParticipant: article.typeOfParticipant,
+      };
 
-    article = {
-      title: article.title,
-      authors: article.authors,
-      yearPublished: article.yearPublished,
-      journalName: article.journalName,
-      volume: article.volume,
-      doi: article.doi,
-      submitDate: article.submitDate,
-      status: "moderated",
-      sepractice: SEPractice,
-    };
+      // // Add the article to our moderatedArticles table
+      axios
+        .post("http://localhost:8082/analyseArticle", article, {
+          params: {
+            userID: userID,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            alert("Article Analysed");
+          } else if (res.status === 409) {
+            alert("Article Unable To Be Analysed. " + res.data);
+          }
+        })
+        .catch((er) => {
+          console.log(er);
+        });
 
-    console.log(SEPractice);
+      // Delete the article from our moderatedArtiles table
+      axios
+        .post("http://localhost:8082/deleteModeratedArticle", article, {
+          params: {
+            userID: userID,
+            title: title,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            alert("Article Removed from Submitted");
+          } else if (res.status === 409) {
+            alert("Article Unable To Be Removed from Submitted");
+          }
+        })
+        .catch((er) => {
+          console.log(er);
+        });
 
-    // // Add the article to our moderatedArticles table
-    axios
-      .post("http://localhost:8082/analyseArticle", article, {
-        params: {
-          userID: userID,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          alert("Article Analysed");
-        } else if (res.status === 409) {
-          alert("Article Unable To Be Analysed. " + res.data);
-        }
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-
-    // Delete the article from our moderatedArtiles table
-    axios
-      .post("http://localhost:8082/deleteModeratedArticle", article, {
-        params: {
-          userID: userID,
-          title: title,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          alert("Article Removed from Submitted");
-        } else if (res.status === 409) {
-          alert("Article Unable To Be Removed from Submitted");
-        }
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-
-    setPendingArticles([]);
+      setPendingArticles([]);
+    } else {
+      alert("Please fill all fields");
+    }
   }
 
   return (
@@ -98,6 +112,10 @@ function Moderation() {
             <th>Date Submitted</th>
             <th>Status</th>
             <th>Choose SE Practice</th>
+            <th>Claim</th>
+            <th>Result of Evidence</th>
+            <th>Type of Research</th>
+            <th>Type of Participant</th>
             <th>Submit</th>
           </tr>
         </thead>
@@ -117,12 +135,45 @@ function Moderation() {
                         <select
                           name="sepractice"
                           id="sepractice"
-                          onChange={(e) => setSEPractice(e.target.value)}
+                          value={article.sepractice}
+                          onChange={(e) =>
+                            (article.sepractice = e.target.value)
+                          }
                         >
                           <option value="TDD">TDD</option>
                           <option value="MDD">Mob Driven Development</option>
                           <option value="Agile">Agile</option>
                         </select>
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          onChange={(e) => (article.claim = e.target.value)}
+                        ></input>
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          onChange={(e) =>
+                            (article.resultOfEvidence = e.target.value)
+                          }
+                        ></input>
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          onChange={(e) =>
+                            (article.typeOfResearch = e.target.value)
+                          }
+                        ></input>
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          onChange={(e) =>
+                            (article.typeOfParticipant = e.target.value)
+                          }
+                        ></input>
                       </td>
                       <td>
                         <button
