@@ -5,7 +5,7 @@ const getUsers = require("./db");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
 const path = require("path");
-
+const path = require("path");
 const server = express();
 
 //const dbConnect = dbo.getDb();
@@ -104,10 +104,13 @@ MongoClient.connect(connectionString)
 
     // Adds article to analysed articles
     server.post("/analyseArticle", (req, res) => {
-        db.collection("Articles").insertOne(req.body).then(() => {
-            res.status(200);
-            res.send();
-        }).catch(err => console.log(err))
+      db.collection("Articles")
+        .insertOne(req.body)
+        .then(() => {
+          res.status(200);
+          res.send();
+        })
+        .catch((err) => console.log(err));
     });
 
     // Adds article to removed articles
@@ -184,6 +187,10 @@ MongoClient.connect(connectionString)
 server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+
+//This will create a middleware.
+//When you navigate to the root page, it would use the built react-app
+server.use(express.static(path.resolve(__dirname, "./frontend/build")));
 
 server.get("/", (req, res) => {
   console.log("API is running");
