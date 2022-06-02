@@ -242,18 +242,7 @@ function BrowseArticles() {
                 return (
                   <tr key={key}>
                     <td>{article.title}</td>
-                    <td>
-                      {article.authors.length <= 1
-                        ? article.authors
-                        : article.authors.map((author, key) => {
-                            return (
-                              <span key={key}>
-                                {author}
-                                {key + 1 < article.authors.length ? ", " : " "}
-                              </span>
-                            );
-                          })}
-                    </td>
+                    <td>{article.authors}</td>
                     {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td> </td>}
                     {columnView.journalName ? <td>{article.journalName}</td> : <td> </td>}
                     {columnView.SEPractice ? <td>{article.SEPractice}</td> : <td> </td>}
@@ -268,18 +257,7 @@ function BrowseArticles() {
                 return (
                   <tr key={key}>
                     <td>{article.title}</td>
-                    <td>
-                      {article.authors.length <= 1
-                        ? article.authors
-                        : article.authors.map((author, key) => {
-                            return (
-                              <span key={key}>
-                                {author}
-                                {key + 1 < article.authors.length ? ", " : " "}
-                              </span>
-                            );
-                          })}
-                    </td>
+                    <td>{article.authors}</td>
                     {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td></td>}
                     {columnView.journalName ? <td>{article.journalName}</td> : <td></td>}
                     {columnView.SEPractice ? <td>{article.SEPractice}</td> : <td></td>}
