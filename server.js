@@ -191,9 +191,5 @@ server.use(express.urlencoded({ extended: true }));
 // When you navigate to the root page, it would use the built react-app
 server.use(express.static(path.resolve(__dirname, "./frontend/build")));
 
-server.get("/", (req, res) => {
-  console.log("API is running");
-  res.send("API is running!");
-});
 
 server.listen(PORT, () => console.log(`listening on port ${PORT}`));
