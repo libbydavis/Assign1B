@@ -4,6 +4,7 @@ import "./App.css";
 
 function App() {
   const [pendingArticles, setPendingArticles] = useState([]);
+  const [moderatedArticles, setModeratedArticles] = useState([]);
   const [userType, setUserType] = useState();
 
   function getArticles() {
@@ -11,6 +12,15 @@ function App() {
       .get("http://localhost:8082/viewSubmissions", {})
       .then((res) => {
         setPendingArticles(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get("http://localhost:8082/viewModerated", {})
+      .then((res) => {
+        setModeratedArticles(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -28,14 +38,18 @@ function App() {
           "Moderator Notificaiton: You have pending articles avaliable to moderate"
         );
       }
-    } else if (pendingArticles && userType === "analyst") {
-      if (pendingArticles.length > 0) {
+    }
+  }, [pendingArticles]);
+
+  useEffect(() => {
+    if (moderatedArticles && userType === "analyst") {
+      if (moderatedArticles.length > 0) {
         alert(
           "Analyst Notificaiton: You have pending articles avaliable to analyse"
         );
       }
     }
-  }, [pendingArticles]);
+  }, [moderatedArticles]);
 
   useEffect(() => {
     setUserType(sessionStorage.getItem("userType"));
