@@ -1,15 +1,10 @@
 import Table from "react-bootstrap/Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Article from './Article'
 
 function Moderation() {
   const [pendingArticles, setPendingArticles] = useState([]);
-  const [SEPractice, setSEPractice] = useState("TDD");
-
-  const [claim, setClaim] = useState("");
-  const [resultOfEvidence, setResultOfEvidence] = useState("");
-  const [typeOfResearch, setTypeOfResearch] = useState("");
-  const [typeOfParticipant, setTypeOfParticipant] = useState("");
 
   function getArticles() {
     axios
@@ -30,18 +25,13 @@ function Moderation() {
     getArticles();
   }, [pendingArticles]);
 
-  function formatDate(d) {
-    let date = new Date(d);
-    return date.toDateString();
-  }
 
-  function analyseArticle(article, userID, title) {
-    console.log(article);
+  function analyseArticle(article, userID, analystDetail) {
     if (
-      article.claim.length > 0 &&
-      article.resultOfEvidence.length > 0 &&
-      article.typeOfResearch.length > 0 &&
-      article.typeOfParticipant.length > 0
+        analystDetail.claim.length > 0 &&
+        analystDetail.resultOfEvidence.length > 0 &&
+        analystDetail.typeOfResearch.length > 0 &&
+        analystDetail.typeOfParticipant.length > 0
     ) {
       article = {
         title: article.title,
@@ -52,11 +42,11 @@ function Moderation() {
         doi: article.doi,
         submitDate: article.submitDate,
         status: "analysed",
-        sepractice: article.SEPractice,
-        claim: article.claim,
-        resultOfEvidence: article.resultOfEvidence,
-        typeOfResearch: article.typeOfResearch,
-        typeOfParticipant: article.typeOfParticipant,
+        sepractice: analystDetail.SEPractice,
+        claim: analystDetail.claim,
+        resultOfEvidence: analystDetail.resultOfEvidence,
+        typeOfResearch: analystDetail.typeOfResearch,
+        typeOfParticipant: analystDetail.typeOfParticipant,
       };
 
       // // Add the article to our moderatedArticles table
@@ -82,7 +72,7 @@ function Moderation() {
         .post("http://localhost:8082/deleteModeratedArticle", article, {
           params: {
             userID: userID,
-            title: title,
+            title: article.title,
           },
         })
         .then((res) => {
@@ -126,65 +116,7 @@ function Moderation() {
               return user.moderatedArticles.map((article, key) => {
                 if (article.status === "moderated") {
                   return (
-                    <tr key={key}>
-                      <td>{article.title}</td>
-                      <td>{article.authors}</td>
-                      <td>{formatDate(article.submitDate)}</td>
-                      <td>{article.status}</td>
-                      <td>
-                        <select
-                          name="sepractice"
-                          id="sepractice"
-                          value={article.sepractice}
-                          onChange={(e) =>
-                            (article.sepractice = e.target.value)
-                          }
-                        >
-                          <option value="TDD">TDD</option>
-                          <option value="MDD">Mob Driven Development</option>
-                          <option value="Agile">Agile</option>
-                        </select>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          onChange={(e) => (article.claim = e.target.value)}
-                        ></input>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          onChange={(e) =>
-                            (article.resultOfEvidence = e.target.value)
-                          }
-                        ></input>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          onChange={(e) =>
-                            (article.typeOfResearch = e.target.value)
-                          }
-                        ></input>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          onChange={(e) =>
-                            (article.typeOfParticipant = e.target.value)
-                          }
-                        ></input>
-                      </td>
-                      <td>
-                        <button
-                          onClick={() =>
-                            analyseArticle(article, userID, article.title)
-                          }
-                        >
-                          Submit
-                        </button>
-                      </td>
-                    </tr>
+                    <Article key={key} article={article} analyseArticle={analyseArticle} userID={userID}></Article>
                   );
                 }
               });

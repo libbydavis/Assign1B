@@ -4,6 +4,7 @@ const connectDB = require("./db");
 const getUsers = require("./db");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
+const path = require("path");
 
 const server = express();
 
@@ -103,19 +104,10 @@ MongoClient.connect(connectionString)
 
     // Adds article to analysed articles
     server.post("/analyseArticle", (req, res) => {
-      const query = { userID: ObjectId(req.query.userID) };
-      const update = { $push: { articles: req.body } };
-      const options = { upsert: true };
-      db.collection("Articles")
-        .updateOne(query, update, options)
-        .then(() => {
-          res.status(200);
-          res.send();
-        })
-        .catch((err) => {
-          res.status(409);
-          res.send(err);
-        });
+        db.collection("Articles").insertOne(req.body).then(() => {
+            res.status(200);
+            res.send();
+        }).catch(err => console.log(err))
     });
 
     // Adds article to removed articles

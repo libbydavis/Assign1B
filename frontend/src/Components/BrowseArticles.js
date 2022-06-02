@@ -17,12 +17,12 @@ function BrowseArticles() {
     authors: true,
     yearPublished: true,
     journalName: true,
-    SEPractice: true,
+    sepractice: true,
     rating: true,
     claim: true,
-    evidenceResult: true,
-    researchType: true,
-    participantType: true
+    resultOfEvidence: true,
+    typeOfResearch: true,
+    typeOfParticipant: true
   })
   const [sortByCurrent, setSortByCurrent] = useState("title");
   const [selectedPractice, setSelectedPractice] = useState("All");
@@ -159,8 +159,8 @@ function BrowseArticles() {
         <label style={{ color: "black" }}>Select SE Practice</label>
         <div>
           <select
-            name="sePractice"
-            id="sePractice"
+            name="sepractice"
+            id="sepractice"
             onChange={(e) => setSelectedPractice(e.target.value)}
           >
             <option value="All">All</option>
@@ -230,27 +230,27 @@ function BrowseArticles() {
                   <p onClick={() => sort("rating")}>Rating</p>
                 )}
               </th>
-              <th>Claim <input onClick = {() => hideandshow ("Claim") }type = "checkbox"/> </th>
-              <th>Result of Evidence <input onClick = {() => hideandshow ("ResultofEvidence") }type = "checkbox"/> </th>
-              <th>Type of Research <input onClick = {() => hideandshow ("TypeofResearch") }type = "checkbox"/></th>
-              <th>Type of Participant<input onClick = {() => hideandshow ("TypeofParticipant") }type = "checkbox"/></th>
+              <th>Claim <input onClick = {() => hideandshow ("claim") }type = "checkbox"/> </th>
+              <th>Result of Evidence <input onClick = {() => hideandshow ("resultOfEvidence") }type = "checkbox"/> </th>
+              <th>Type of Research <input onClick = {() => hideandshow ("typeOfResearch") }type = "checkbox"/></th>
+              <th>Type of Participant<input onClick = {() => hideandshow ("typeOfParticipant") }type = "checkbox"/></th>
             </tr>
           </thead>
           <tbody>
             {articles.map((article, key) => {
-              if (article.SEPractice === selectedPractice) {
+              if (article.sepractice === selectedPractice) {
                 return (
                   <tr key={key}>
                     <td>{article.title}</td>
                     <td>{article.authors}</td>
-                    {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td> </td>}
-                    {columnView.journalName ? <td>{article.journalName}</td> : <td> </td>}
-                    {columnView.SEPractice ? <td>{article.SEPractice}</td> : <td> </td>}
-                    {columnView.rating ? <td>{article.rating}</td> : <td> </td>}
-                    {columnView.claim ? <td>{article.claim}</td> : <td> </td>}
-                    {columnView.evidenceResult ? <td>{article.evidenceResult}</td> : <td> </td>}
-                    {columnView.researchType ? <td>{article.researchType}</td> : <td> </td>}
-                    {columnView.participantType ? <td>{article.participantType}</td> : <td> </td>}
+                    {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td></td>}
+                    {columnView.journalName ? <td>{article.journalName}</td> : <td></td>}
+                    {columnView.sepractice ? <td>{article.sepractice}</td> : <td></td>}
+                    {columnView.rating ? <td>{article.rating}</td> : <td></td>}
+                    {columnView.claim ? <td>{article.claim}</td> : <td></td>}
+                    {columnView.resultOfEvidence ? <td>{article.resultOfEvidence}</td> : <td></td>}
+                    {columnView.typeOfResearch ? <td>{article.typeOfResearch}</td> : <td></td>}
+                    {columnView.typeOfParticipant ? <td>{article.typeOfParticipant}</td> : <td></td>}
                   </tr>
                 );
               } else if (selectedPractice === "All") {
@@ -260,12 +260,12 @@ function BrowseArticles() {
                     <td>{article.authors}</td>
                     {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td></td>}
                     {columnView.journalName ? <td>{article.journalName}</td> : <td></td>}
-                    {columnView.SEPractice ? <td>{article.SEPractice}</td> : <td></td>}
+                    {columnView.sepractice ? <td>{article.sepractice}</td> : <td></td>}
                     {columnView.rating ? <td>{article.rating}</td> : <td></td>}
                     {columnView.claim ? <td>{article.claim}</td> : <td></td>}
-                    {columnView.evidenceResult ? <td>{article.evidenceResult}</td> : <td></td>}
-                    {columnView.researchType ? <td>{article.researchType}</td> : <td></td>}
-                    {columnView.participantType ? <td>{article.participantType}</td> : <td></td>}
+                    {columnView.resultOfEvidence ? <td>{article.resultOfEvidence}</td> : <td></td>}
+                    {columnView.typeOfResearch ? <td>{article.typeOfResearch}</td> : <td></td>}
+                    {columnView.typeOfParticipant ? <td>{article.typeOfParticipant}</td> : <td></td>}
                   </tr>
                 );
               }
