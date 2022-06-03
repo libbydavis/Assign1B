@@ -183,7 +183,7 @@ MongoClient.connect(connectionString)
       server.use(express.static(path.resolve(__dirname, "./frontend/build")));
       server.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
-      server.get('/', (req, res) => {
+      server.get('/*', (req, res) => {
           res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
       });
   })
