@@ -1,13 +1,10 @@
 const express = require("express");
 const PORT = process.env.PORT || 8082;
-const connectDB = require("./db");
-const getUsers = require("./db");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
 const path = require("path");
 const server = express();
 
-//const dbConnect = dbo.getDb();
 require("dotenv").config();
 const connectionString = process.env.MONGO_URI;
 const MongoClient = require("mongodb").MongoClient;

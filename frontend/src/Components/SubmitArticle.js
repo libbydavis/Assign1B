@@ -75,7 +75,7 @@ function SubmitArticle() {
     if (valid()) {
       axios
         .post(
-          "https://cise-assign1b-deploy.herokuapp.com:8082/submitArticle",
+          "/submitArticle",
           article,
           {
             params: {

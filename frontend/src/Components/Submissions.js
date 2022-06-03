@@ -8,7 +8,7 @@ function Submissions() {
   useEffect(() => {
     let ID = sessionStorage.getItem("token");
     axios
-      .get("https://cise-assign1b-deploy.herokuapp.:8082/viewSubmissions", {
+      .get("/viewSubmissions", {
         params: {
           userID: ID,
         },

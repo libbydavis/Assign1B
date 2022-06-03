@@ -19,7 +19,7 @@ function Login({ props }) {
   const submitLogin = () => {
     setErrorMessage("");
     axios
-      .post("https://cise-assign1b-deploy.herokuapp.com:8082/login")
+      .post("/login")
       .then((res) => {
         setUsers(res.data);
       })

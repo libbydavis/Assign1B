@@ -8,7 +8,7 @@ function Moderation() {
 
   function getArticles() {
     axios
-      .get("https://cise-assign1b-deploy.herokuapp.com/viewModerated", {})
+      .get("/viewModerated", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
@@ -51,7 +51,7 @@ function Moderation() {
       // // Add the article to our moderatedArticles table
       axios
         .post(
-          "https://cise-assign1b-deploy.herokuapp.com:8082/analyseArticle",
+          "/analyseArticle",
           article,
           {
             params: {
@@ -73,7 +73,7 @@ function Moderation() {
       // Delete the article from our moderatedArtiles table
       axios
         .post(
-          "https://cise-assign1b-deploy.herokuapp.com/deleteModeratedArticle",
+          "/deleteModeratedArticle",
           article,
           {
             params: {

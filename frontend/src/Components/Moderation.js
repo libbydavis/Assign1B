@@ -7,7 +7,7 @@ function Moderation() {
 
   function getArticles() {
     axios
-      .get("https://cise-assign1b-deploy.herokuapp.com:8082/viewSubmissions", {})
+      .get("/viewSubmissions", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
