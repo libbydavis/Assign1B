@@ -177,16 +177,20 @@ MongoClient.connect(connectionString)
           }
         });
     });
-
-      server.use(express.static(path.join(__dirname, 'frontend/build')))
-      server.get('*', (req, res) => {
-          res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-      })
   })
   .catch((error) => console.log(error));
 
 server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+
+// This will create a middleware.
+// When you navigate to the root page, it would use the built react-app
+server.use(express.static(path.resolve(__dirname, "./frontend/build")));
+server.use(express.static(path.join(__dirname, 'frontend', 'build')));
+
+server.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
+});
 
 server.listen(PORT, () => console.log(`listening on port ${PORT}`));
