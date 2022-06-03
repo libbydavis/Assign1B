@@ -6,10 +6,10 @@ const path = require("path");
 const server = express();
 
 require("dotenv").config();
-const connectionString = process.env.MONGO_URI;
+//const connectionString = process.env.MONGO_URI;
 const MongoClient = require("mongodb").MongoClient;
 
-MongoClient.connect(connectionString)
+MongoClient.connect('mongodb+srv://admin1blibby:vQ%23P1k37j%258%26@cluster0.qzydh.mongodb.net/CISE-Assign1B?retryWrites=true&w=majority')
   .then((client) => {
     console.log("Connected to database");
     const db = client.db("Assign1B");
