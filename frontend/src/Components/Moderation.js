@@ -7,7 +7,7 @@ function Moderation() {
 
   function getArticles() {
     axios
-      .get("/viewSubmissions", {})
+      .get("/api/viewSubmissions", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
@@ -49,7 +49,7 @@ function Moderation() {
     // Add the article to our moderatedArticles table
     axios
       .post(
-        "https://cise-assign1b-deploy.herokuapp.com/approveArticle",
+        "/api/approveArticle",
         article,
         {
           params: {
@@ -71,7 +71,7 @@ function Moderation() {
     // Delete the article from our submittedArticles table
     axios
       .post(
-        "https://cise-assign1b-deploy.herokuapp.com/deleteSubmittedArticle",
+        "/api/deleteSubmittedArticle",
         article,
         {
           params: {
@@ -109,7 +109,7 @@ function Moderation() {
     // Add the article to our removedArticles table
     axios
       .post(
-        "https://cise-assign1b-deploy.herokuapp.com:8082/removeArticle",
+        "/api/removeArticle",
         article,
         {
           params: {
@@ -131,7 +131,7 @@ function Moderation() {
     // Delete the article from our submittedArticles table
     axios
       .post(
-        "https://cise-assign1b-deploy.herokuapp.com:8082/deleteSubmittedArticle",
+        "/api/deleteSubmittedArticle",
         article,
         {
           params: {

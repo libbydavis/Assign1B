@@ -8,7 +8,7 @@ function Submissions() {
   useEffect(() => {
     let ID = sessionStorage.getItem("token");
     axios
-      .get("/viewSubmissions", {
+      .get("/api/viewSubmissions", {
         params: {
           userID: ID,
         },

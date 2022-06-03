@@ -8,7 +8,7 @@ function Moderation() {
 
   function getArticles() {
     axios
-      .get("/viewModerated", {})
+      .get("/api/viewModerated", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
@@ -51,7 +51,7 @@ function Moderation() {
       // // Add the article to our moderatedArticles table
       axios
         .post(
-          "/analyseArticle",
+          "/api/analyseArticle",
           article,
           {
             params: {
@@ -73,7 +73,7 @@ function Moderation() {
       // Delete the article from our moderatedArtiles table
       axios
         .post(
-          "/deleteModeratedArticle",
+          "/api/deleteModeratedArticle",
           article,
           {
             params: {

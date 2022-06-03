@@ -30,7 +30,7 @@ function BrowseArticles() {
 
   const getData = () => {
     axios
-      .get("/articles")
+      .get("/api/articles")
       .then((res) => {
         setArticles(res.data);
       })

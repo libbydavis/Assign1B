@@ -19,7 +19,7 @@ function Login({ props }) {
   const submitLogin = () => {
     setErrorMessage("");
     axios
-      .post("/login")
+      .post("/api/login")
       .then((res) => {
         setUsers(res.data);
       })

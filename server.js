@@ -14,7 +14,7 @@ MongoClient.connect(connectionString)
     console.log("Connected to database");
     const db = client.db("Assign1B");
 
-    server.post("/submitArticle", (req, res) => {
+    server.post("/api/submitArticle", (req, res) => {
       const query = { userID: ObjectId(req.query.userID) };
       const update = { $push: { submittedArticles: req.body } };
       const options = { upsert: true };
@@ -30,7 +30,7 @@ MongoClient.connect(connectionString)
         });
     });
 
-    server.get("/articles", (req, res) => {
+    server.get("/api/articles", (req, res) => {
       db.collection("Articles")
         .find()
         .toArray(function (err, result) {
@@ -42,7 +42,7 @@ MongoClient.connect(connectionString)
         });
     });
 
-    server.get("/viewSubmissions", (req, res) => {
+    server.get("/api/viewSubmissions", (req, res) => {
       if (req.query.userID) {
         db.collection("SubmittedArticles")
           .find({ userID: ObjectId(req.query.userID) })
@@ -68,7 +68,7 @@ MongoClient.connect(connectionString)
       }
     });
 
-    server.get("/viewModerated", (req, res) => {
+    server.get("/api/viewModerated", (req, res) => {
       db.collection("ModeratedArticles")
         .find()
         .toArray(function (err, result) {
@@ -82,7 +82,7 @@ MongoClient.connect(connectionString)
     });
 
     // Adds article to moderated articles
-    server.post("/approveArticle", (req, res) => {
+    server.post("/api/approveArticle", (req, res) => {
       const query = { userID: ObjectId(req.query.userID) };
       const update = { $push: { moderatedArticles: req.body } };
       const options = { upsert: true };
@@ -99,7 +99,7 @@ MongoClient.connect(connectionString)
     });
 
     // Adds article to analysed articles
-    server.post("/analyseArticle", (req, res) => {
+    server.post("/api/analyseArticle", (req, res) => {
       db.collection("Articles")
         .insertOne(req.body)
         .then(() => {
@@ -110,7 +110,7 @@ MongoClient.connect(connectionString)
     });
 
     // Adds article to removed articles
-    server.post("/removeArticle", (req, res) => {
+    server.post("/api/removeArticle", (req, res) => {
       const query = { userID: ObjectId(req.query.userID) };
       const update = { $push: { removedArticles: req.body } };
       const options = { upsert: true };
@@ -127,7 +127,7 @@ MongoClient.connect(connectionString)
     });
 
     // Removes article from submitted articles
-    server.post("/deleteSubmittedArticle", (req, res) => {
+    server.post("/api/deleteSubmittedArticle", (req, res) => {
       const query = { userID: ObjectId(req.query.userID) };
       const update = {
         $pull: { submittedArticles: { title: req.query.title } },
@@ -147,7 +147,7 @@ MongoClient.connect(connectionString)
     });
 
     // Removes article from submitted articles
-    server.post("/deleteModeratedArticle", (req, res) => {
+    server.post("/api/deleteModeratedArticle", (req, res) => {
       const query = { userID: ObjectId(req.query.userID) };
       const update = {
         $pull: { moderatedArticles: { title: req.query.title } },
@@ -166,7 +166,7 @@ MongoClient.connect(connectionString)
         });
     });
 
-    server.post("/login", (req, res) => {
+    server.post("/api/login", (req, res) => {
       db.collection("Users")
         .find()
         .toArray(function (err, result) {

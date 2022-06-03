@@ -75,7 +75,7 @@ function SubmitArticle() {
     if (valid()) {
       axios
         .post(
-          "/submitArticle",
+          "/api/submitArticle",
           article,
           {
             params: {
