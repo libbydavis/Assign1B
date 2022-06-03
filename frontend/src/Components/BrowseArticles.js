@@ -30,7 +30,7 @@ function BrowseArticles() {
 
   const getData = () => {
     axios
-      .get("https://cise-assign1b-deploy.herokuapp.com/articles")
+      .get("https://cise-assign1b-deploy.herokuapp.com:8082/articles")
       .then((res) => {
         setArticles(res.data);
       })

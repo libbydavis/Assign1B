@@ -51,7 +51,7 @@ function Moderation() {
       // // Add the article to our moderatedArticles table
       axios
         .post(
-          "https://cise-assign1b-deploy.herokuapp.com/analyseArticle",
+          "https://cise-assign1b-deploy.herokuapp.com:8082/analyseArticle",
           article,
           {
             params: {

@@ -7,7 +7,7 @@ function Moderation() {
 
   function getArticles() {
     axios
-      .get("https://cise-assign1b-deploy.herokuapp.com/viewSubmissions", {})
+      .get("https://cise-assign1b-deploy.herokuapp.com:8082/viewSubmissions", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
@@ -109,7 +109,7 @@ function Moderation() {
     // Add the article to our removedArticles table
     axios
       .post(
-        "https://cise-assign1b-deploy.herokuapp.com/removeArticle",
+        "https://cise-assign1b-deploy.herokuapp.com:8082/removeArticle",
         article,
         {
           params: {
@@ -131,7 +131,7 @@ function Moderation() {
     // Delete the article from our submittedArticles table
     axios
       .post(
-        "https://cise-assign1b-deploy.herokuapp.com/deleteSubmittedArticle",
+        "https://cise-assign1b-deploy.herokuapp.com:8082/deleteSubmittedArticle",
         article,
         {
           params: {
