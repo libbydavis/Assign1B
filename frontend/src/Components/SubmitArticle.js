@@ -74,11 +74,15 @@ function SubmitArticle() {
     const token = sessionStorage.getItem("token");
     if (valid()) {
       axios
-        .post("http://localhost:8082/submitArticle", article, {
-          params: {
-            userID: token,
-          },
-        })
+        .post(
+          "https://cise-assign1b-deploy.herokuapp.com/submitArticle",
+          article,
+          {
+            params: {
+              userID: token,
+            },
+          }
+        )
         .then((res) => {
           if (res.status === 200) {
             alert("Article Submitted");

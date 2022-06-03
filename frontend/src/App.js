@@ -9,7 +9,7 @@ function App() {
 
   function getArticles() {
     axios
-      .get("http://localhost:8082/viewSubmissions", {})
+      .get("https://cise-assign1b-deploy.herokuapp.com/viewSubmissions", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
@@ -18,7 +18,7 @@ function App() {
       });
 
     axios
-      .get("http://localhost:8082/viewModerated", {})
+      .get("https://cise-assign1b-deploy.herokuapp.com/viewModerated", {})
       .then((res) => {
         setModeratedArticles(res.data);
       })

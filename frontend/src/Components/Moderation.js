@@ -7,7 +7,7 @@ function Moderation() {
 
   function getArticles() {
     axios
-      .get("http://localhost:8082/viewSubmissions", {})
+      .get("https://cise-assign1b-deploy.herokuapp.com/viewSubmissions", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
@@ -48,11 +48,15 @@ function Moderation() {
 
     // Add the article to our moderatedArticles table
     axios
-      .post("http://localhost:8082/approveArticle", article, {
-        params: {
-          userID: userID,
-        },
-      })
+      .post(
+        "https://cise-assign1b-deploy.herokuapp.com/approveArticle",
+        article,
+        {
+          params: {
+            userID: userID,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           alert("Article Approved");
@@ -66,12 +70,16 @@ function Moderation() {
 
     // Delete the article from our submittedArticles table
     axios
-      .post("http://localhost:8082/deleteSubmittedArticle", article, {
-        params: {
-          userID: userID,
-          title: title,
-        },
-      })
+      .post(
+        "https://cise-assign1b-deploy.herokuapp.com/deleteSubmittedArticle",
+        article,
+        {
+          params: {
+            userID: userID,
+            title: title,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           alert("Article Removed from old table");
@@ -100,11 +108,15 @@ function Moderation() {
 
     // Add the article to our removedArticles table
     axios
-      .post("http://localhost:8082/removeArticle", article, {
-        params: {
-          userID: userID,
-        },
-      })
+      .post(
+        "https://cise-assign1b-deploy.herokuapp.com/removeArticle",
+        article,
+        {
+          params: {
+            userID: userID,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           alert("Article Removed");
@@ -118,12 +130,16 @@ function Moderation() {
 
     // Delete the article from our submittedArticles table
     axios
-      .post("http://localhost:8082/deleteSubmittedArticle", article, {
-        params: {
-          userID: userID,
-          title: title,
-        },
-      })
+      .post(
+        "https://cise-assign1b-deploy.herokuapp.com/deleteSubmittedArticle",
+        article,
+        {
+          params: {
+            userID: userID,
+            title: title,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           alert("Article Removed from old table");

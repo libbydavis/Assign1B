@@ -1,14 +1,14 @@
 import Table from "react-bootstrap/Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Article from './Article'
+import Article from "./Article";
 
 function Moderation() {
   const [pendingArticles, setPendingArticles] = useState([]);
 
   function getArticles() {
     axios
-      .get("http://localhost:8082/viewModerated", {})
+      .get("https://cise-assign1b-deploy.herokuapp.com/viewModerated", {})
       .then((res) => {
         setPendingArticles(res.data);
       })
@@ -25,13 +25,12 @@ function Moderation() {
     getArticles();
   }, [pendingArticles]);
 
-
   function analyseArticle(article, userID, analystDetail) {
     if (
-        analystDetail.claim.length > 0 &&
-        analystDetail.resultOfEvidence.length > 0 &&
-        analystDetail.typeOfResearch.length > 0 &&
-        analystDetail.typeOfParticipant.length > 0
+      analystDetail.claim.length > 0 &&
+      analystDetail.resultOfEvidence.length > 0 &&
+      analystDetail.typeOfResearch.length > 0 &&
+      analystDetail.typeOfParticipant.length > 0
     ) {
       article = {
         title: article.title,
@@ -51,11 +50,15 @@ function Moderation() {
 
       // // Add the article to our moderatedArticles table
       axios
-        .post("http://localhost:8082/analyseArticle", article, {
-          params: {
-            userID: userID,
-          },
-        })
+        .post(
+          "https://cise-assign1b-deploy.herokuapp.com/analyseArticle",
+          article,
+          {
+            params: {
+              userID: userID,
+            },
+          }
+        )
         .then((res) => {
           if (res.status === 200) {
             alert("Article Analysed");
@@ -69,12 +72,16 @@ function Moderation() {
 
       // Delete the article from our moderatedArtiles table
       axios
-        .post("http://localhost:8082/deleteModeratedArticle", article, {
-          params: {
-            userID: userID,
-            title: article.title,
-          },
-        })
+        .post(
+          "https://cise-assign1b-deploy.herokuapp.com/deleteModeratedArticle",
+          article,
+          {
+            params: {
+              userID: userID,
+              title: article.title,
+            },
+          }
+        )
         .then((res) => {
           if (res.status === 200) {
             alert("Article Removed from Submitted");
@@ -116,7 +123,12 @@ function Moderation() {
               return user.moderatedArticles.map((article, key) => {
                 if (article.status === "moderated") {
                   return (
-                    <Article key={key} article={article} analyseArticle={analyseArticle} userID={userID}></Article>
+                    <Article
+                      key={key}
+                      article={article}
+                      analyseArticle={analyseArticle}
+                      userID={userID}
+                    ></Article>
                   );
                 }
               });

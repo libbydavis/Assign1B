@@ -4,7 +4,7 @@ import "../App.css";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../Context";
 
-function Login({props}) {
+function Login({ props }) {
   const loggedIn = useContext(AppContext);
 
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ function Login({props}) {
   const submitLogin = () => {
     setErrorMessage("");
     axios
-      .post("http://localhost:8082/login")
+      .post("https://cise-assign1b-deploy.herokuapp.com/login")
       .then((res) => {
         setUsers(res.data);
       })
@@ -38,9 +38,9 @@ function Login({props}) {
         loggedIn.setLoggedIn(true);
 
         //session
-        sessionStorage.setItem('userType', user.userType);
-        sessionStorage.setItem('token', user._id);
-        
+        sessionStorage.setItem("userType", user.userType);
+        sessionStorage.setItem("token", user._id);
+
         navigate("/");
       } else {
         setErrorMessage(

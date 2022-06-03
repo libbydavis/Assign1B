@@ -22,15 +22,15 @@ function BrowseArticles() {
     claim: true,
     resultOfEvidence: true,
     typeOfResearch: true,
-    typeOfParticipant: true
-  })
+    typeOfParticipant: true,
+  });
   const [sortByCurrent, setSortByCurrent] = useState("title");
   const [selectedPractice, setSelectedPractice] = useState("All");
   const didMount = useRef(false);
 
   const getData = () => {
     axios
-      .get("http://localhost:8082/articles")
+      .get("https://cise-assign1b-deploy.herokuapp.com/articles")
       .then((res) => {
         setArticles(res.data);
       })
@@ -145,11 +145,11 @@ function BrowseArticles() {
       : setSortOrder("descending");
   }
 
-  function hideandshow( columnName){
-   let hidden = !columnView[columnName]
-   setColumnView({...columnView,[columnName]: hidden})
+  function hideandshow(columnName) {
+    let hidden = !columnView[columnName];
+    setColumnView({ ...columnView, [columnName]: hidden });
   }
-   useEffect(() => {
+  useEffect(() => {
     sort(sortByCurrent);
   }, [sortOrder]);
 
@@ -230,10 +230,31 @@ function BrowseArticles() {
                   <p onClick={() => sort("rating")}>Rating</p>
                 )}
               </th>
-              <th>Claim <input onClick = {() => hideandshow ("claim") }type = "checkbox"/> </th>
-              <th>Result of Evidence <input onClick = {() => hideandshow ("resultOfEvidence") }type = "checkbox"/> </th>
-              <th>Type of Research <input onClick = {() => hideandshow ("typeOfResearch") }type = "checkbox"/></th>
-              <th>Type of Participant<input onClick = {() => hideandshow ("typeOfParticipant") }type = "checkbox"/></th>
+              <th>
+                Claim{" "}
+                <input onClick={() => hideandshow("claim")} type="checkbox" />{" "}
+              </th>
+              <th>
+                Result of Evidence{" "}
+                <input
+                  onClick={() => hideandshow("resultOfEvidence")}
+                  type="checkbox"
+                />{" "}
+              </th>
+              <th>
+                Type of Research{" "}
+                <input
+                  onClick={() => hideandshow("typeOfResearch")}
+                  type="checkbox"
+                />
+              </th>
+              <th>
+                Type of Participant
+                <input
+                  onClick={() => hideandshow("typeOfParticipant")}
+                  type="checkbox"
+                />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -243,14 +264,38 @@ function BrowseArticles() {
                   <tr key={key}>
                     <td>{article.title}</td>
                     <td>{article.authors}</td>
-                    {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td></td>}
-                    {columnView.journalName ? <td>{article.journalName}</td> : <td></td>}
-                    {columnView.sepractice ? <td>{article.sepractice}</td> : <td></td>}
+                    {columnView.yearPublished ? (
+                      <td>{article.yearPublished}</td>
+                    ) : (
+                      <td></td>
+                    )}
+                    {columnView.journalName ? (
+                      <td>{article.journalName}</td>
+                    ) : (
+                      <td></td>
+                    )}
+                    {columnView.sepractice ? (
+                      <td>{article.sepractice}</td>
+                    ) : (
+                      <td></td>
+                    )}
                     {columnView.rating ? <td>{article.rating}</td> : <td></td>}
                     {columnView.claim ? <td>{article.claim}</td> : <td></td>}
-                    {columnView.resultOfEvidence ? <td>{article.resultOfEvidence}</td> : <td></td>}
-                    {columnView.typeOfResearch ? <td>{article.typeOfResearch}</td> : <td></td>}
-                    {columnView.typeOfParticipant ? <td>{article.typeOfParticipant}</td> : <td></td>}
+                    {columnView.resultOfEvidence ? (
+                      <td>{article.resultOfEvidence}</td>
+                    ) : (
+                      <td></td>
+                    )}
+                    {columnView.typeOfResearch ? (
+                      <td>{article.typeOfResearch}</td>
+                    ) : (
+                      <td></td>
+                    )}
+                    {columnView.typeOfParticipant ? (
+                      <td>{article.typeOfParticipant}</td>
+                    ) : (
+                      <td></td>
+                    )}
                   </tr>
                 );
               } else if (selectedPractice === "All") {
@@ -258,14 +303,38 @@ function BrowseArticles() {
                   <tr key={key}>
                     <td>{article.title}</td>
                     <td>{article.authors}</td>
-                    {columnView.yearPublished ? <td>{article.yearPublished}</td> : <td></td>}
-                    {columnView.journalName ? <td>{article.journalName}</td> : <td></td>}
-                    {columnView.sepractice ? <td>{article.sepractice}</td> : <td></td>}
+                    {columnView.yearPublished ? (
+                      <td>{article.yearPublished}</td>
+                    ) : (
+                      <td></td>
+                    )}
+                    {columnView.journalName ? (
+                      <td>{article.journalName}</td>
+                    ) : (
+                      <td></td>
+                    )}
+                    {columnView.sepractice ? (
+                      <td>{article.sepractice}</td>
+                    ) : (
+                      <td></td>
+                    )}
                     {columnView.rating ? <td>{article.rating}</td> : <td></td>}
                     {columnView.claim ? <td>{article.claim}</td> : <td></td>}
-                    {columnView.resultOfEvidence ? <td>{article.resultOfEvidence}</td> : <td></td>}
-                    {columnView.typeOfResearch ? <td>{article.typeOfResearch}</td> : <td></td>}
-                    {columnView.typeOfParticipant ? <td>{article.typeOfParticipant}</td> : <td></td>}
+                    {columnView.resultOfEvidence ? (
+                      <td>{article.resultOfEvidence}</td>
+                    ) : (
+                      <td></td>
+                    )}
+                    {columnView.typeOfResearch ? (
+                      <td>{article.typeOfResearch}</td>
+                    ) : (
+                      <td></td>
+                    )}
+                    {columnView.typeOfParticipant ? (
+                      <td>{article.typeOfParticipant}</td>
+                    ) : (
+                      <td></td>
+                    )}
                   </tr>
                 );
               }
@@ -273,7 +342,6 @@ function BrowseArticles() {
           </tbody>
         </Table>
       </div>
-
     </>
   );
 }
